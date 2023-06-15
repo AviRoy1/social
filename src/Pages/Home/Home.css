@@ -1,0 +1,9 @@
+.home {
+    background-color: rgb(209, 219, 229);
+}
+.ComponentCointainer {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+}
