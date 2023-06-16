@@ -20,7 +20,7 @@ const ProfileLeftbar = () => {
               style={{
                 marginLeft: 10,
                 marginTop: 24,
-                color: "white",
+                color: "black",
                 textAlign: "start",
               }}>
               Avijit
@@ -29,7 +29,7 @@ const ProfileLeftbar = () => {
               style={{
                 marginLeft: 10,
                 marginTop: 24,
-                color: "white",
+                color: "black",
                 textAlign: "start",
                 marginTop: -16,
                 fontSize: 13,
@@ -39,12 +39,12 @@ const ProfileLeftbar = () => {
           </div>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p style={{ color: "white", marginLeft: 20, fontSize: "14px" }}>
+          <p style={{ color: "black", marginLeft: 20, fontSize: "14px" }}>
             Profile Views
           </p>
           <p
             style={{
-              color: "white",
+              color: "black",
               marginRight: 20,
               fontSize: "12px",
               marginTop: 17,
@@ -52,19 +52,19 @@ const ProfileLeftbar = () => {
             43
           </p>
         </div>
-
+        {/* <hr style={{ marginTop: -10 }} /> */}
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             marginTop: -20,
           }}>
-          <p style={{ color: "white", marginLeft: 20, fontSize: "14px" }}>
+          <p style={{ color: "black", marginLeft: 20, fontSize: "14px" }}>
             Friends
           </p>
           <p
             style={{
-              color: "white",
+              color: "black",
               marginRight: 20,
               fontSize: "12px",
               marginTop: 17,
@@ -72,13 +72,14 @@ const ProfileLeftbar = () => {
             43
           </p>
         </div>
-        <div style={{ marginTop: -20 }}>
-          <h1 style={{ color: "white", marginLeft: 100, fontSize: "17px" }}>
+        {/* <hr style={{ marginTop: -10 }} /> */}
+        <div style={{ marginTop: -10 }}>
+          <h1 style={{ color: "black", marginLeft: 100, fontSize: "17px" }}>
             User Bio
           </h1>
           <p
             style={{
-              color: "white",
+              color: "black",
               marginRight: 20,
               fontSize: "14px",
               marginTop: -10,
@@ -89,24 +90,52 @@ const ProfileLeftbar = () => {
             This my bio.....xxsdwdwd....dwdwdw......he kklsol wdwkdn lksms
           </p>
         </div>
+        <button
+          style={{
+            width: "100%",
+            paddingTop: 7,
+            paddingBottom: 7,
+            border: "none",
+            backgroundColor: "green",
+            color: "black",
+          }}>
+          Edit Bio
+        </button>
       </div>
 
       <div className="NotificationContainer">
-        <div style={{ display: "flex", justifyContent: "space-around" }}>
-          <p style={{ marginLeft: "-20px" }}>Explore</p>
-          <p style={{ color: "#aaa", marginLeft: "40px" }}>See all</p>
+        <h3 style={{ marginLeft: 90 }}>Your Friends</h3>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p style={{ marginLeft: 10 }}>Friends</p>
+          <p style={{ marginRight: 10, color: "#aaa" }}>See all</p>
         </div>
         <div>
-          <img src={`${image}`} className="exploreimage" alt="" />
-          <img src={`${image1}`} className="exploreimage" alt="" />
-          <img src={`${image2}`} className="exploreimage" alt="" />
-          <img src={`${image3}`} className="exploreimage" alt="" />
-          <img src={`${image4}`} className="exploreimage" alt="" />
-          <img src={`${image5}`} className="exploreimage" alt="" />
-          <img src={`${image6}`} className="exploreimage" alt="" />
-          <img src={`${image}`} className="exploreimage" alt="" />
-          <img src={`${image}`} className="exploreimage" alt="" />
-          <img src={`${image}`} className="exploreimage" alt="" />
+          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: 5 }}>
+            <div style={{ marginLeft: 4 }}>
+              <img src={`${image1}`} className="friendImage" alt="" />
+              <p style={{ marginTop: -2 }}>Paves Dan</p>
+            </div>
+            <div style={{ marginLeft: 4 }}>
+              <img src={`${image2}`} className="friendImage" alt="" />
+              <p style={{ marginTop: -2 }}>Samn Dev</p>
+            </div>
+            <div style={{ marginLeft: 4 }}>
+              <img src={`${image3}`} className="friendImage" alt="" />
+              <p style={{ marginTop: -2 }}>Kunal Kam</p>
+            </div>
+            <div style={{ marginLeft: 4 }}>
+              <img src={`${image6}`} className="friendImage" alt="" />
+              <p style={{ marginTop: -2 }}>SK lund</p>
+            </div>
+            <div style={{ marginLeft: 4 }}>
+              <img src={`${image5}`} className="friendImage" alt="" />
+              <p style={{ marginTop: -2 }}>Urman</p>
+            </div>
+            <div style={{ marginLeft: 4 }}>
+              <img src={`${image1}`} className="friendImage" alt="" />
+              <p style={{ marginTop: -2 }}>Bikas DD</p>
+            </div>
+          </div>
         </div>
       </div>
     </div>
