@@ -14,7 +14,7 @@ const Contentpost = () => {
           <input
             type="text"
             className="contentWritingPart"
-            placeholder="Wright your real thought....."
+            placeholder="Write your real thought....."
           />
         </div>
         <div style={{ display: "flex", marginLeft: "10px" }}>

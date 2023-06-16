@@ -8,6 +8,7 @@ const Mainpost = () => {
     <div className="mainpostContainer">
       <Contentpost />
       <Post />
+      <Post />
     </div>
   );
 };
