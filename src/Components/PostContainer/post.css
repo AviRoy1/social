@@ -30,10 +30,10 @@
     margin-left: 300px;
 }
 .commentinput {
-    width: 20pc;
+    width: 25pc;
     margin-left: 10px;
     border: none;
-    height: 6vh;
+    /* height: 6vh; */
 }
 .addCommentBtn{
     padding: 9px;
@@ -43,4 +43,6 @@
     border-radius: 7px;
     margin-left: 13px;
     cursor: pointer;
+    padding-left: 40px;
+    padding-right: 40px;
 }

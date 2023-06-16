@@ -10,6 +10,9 @@ import anotherlikeicon from "../images/setLike.png";
 const Post = () => {
   const [like, setLike] = useState(LikeIcon);
   const [count, setCount] = useState(10);
+  const [comment, setComment] = useState([]);
+  const [commentwriting, setCommentwriting] = useState("");
+  const [show, setShow] = useState(false);
 
   const handleLike = () => {
     if (like === LikeIcon) {
@@ -19,6 +22,24 @@ const Post = () => {
       setLike(LikeIcon);
       setCount(count - 1);
     }
+  };
+  const addComment = () => {
+    const comm = {
+      id: "6ydwi77919lklkddds99",
+      username: "avijit",
+      title: `${commentwriting}`,
+    };
+    setComment(comment.concat(comm));
+    // setCommentwriting("");
+  };
+  const handleComment = () => {
+    addComment();
+  };
+
+  const handleshow = () => {
+    if (show === false) {
+      setShow(true);
+    } else setShow(false);
   };
 
   return (
@@ -77,7 +98,9 @@ const Post = () => {
                   cursor: "pointer",
                 }}>
                 <img src={`${Commenticon}`} className="IconsforPost" alt="" />
-                <p style={{ marginLeft: "6px" }}>10K Comments</p>
+                <p style={{ marginLeft: "6px" }} onClick={handleshow}>
+                  10K Comments
+                </p>
               </div>
             </div>
             <div
@@ -91,15 +114,54 @@ const Post = () => {
               <p style={{ marginLeft: "6px" }}>Share</p>
             </div>
           </div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <img src={`${ProfileImage}`} className="PostImage" alt="" />
-            <input
-              type="text"
-              className="commentinput"
-              placeholder="Write you thought"
-            />
-            <button className="addCommentBtn">Add Comment</button>
-          </div>
+          {show === true ? (
+            <div style={{ padding: "10px" }}>
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <img src={`${ProfileImage}`} className="PostImage" alt="" />
+                <input
+                  type="text"
+                  className="commentinput"
+                  onChange={(e) => setCommentwriting(e.target.value)}
+                  placeholder="Write you thought"
+                />
+                <button className="addCommentBtn" onClick={handleComment}>
+                  Post
+                </button>
+              </div>
+              {comment.map((item) => (
+                <div style={{ alignItems: "center" }}>
+                  <div style={{ display: "flex", alignItems: "center" }}>
+                    <img src={`${ProfileImage}`} className="PostImage" alt="" />
+                    <p
+                      style={{ marginLeft: "6px", fontSize: 17, marginTop: 6 }}>
+                      {item.username}
+                    </p>
+                  </div>
+
+                  <p
+                    style={{
+                      marginLeft: "55px",
+                      textAlign: "start",
+                      marginTop: -16,
+                    }}>
+                    {item.title}
+                  </p>
+                  <p
+                    style={{
+                      marginLeft: "55px",
+                      textAlign: "start",
+                      marginTop: -10,
+                      color: "#aaa",
+                      fontSize: 11,
+                    }}>
+                    Reply
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </div>
