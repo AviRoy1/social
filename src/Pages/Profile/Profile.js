@@ -3,7 +3,7 @@ import "./profile.css";
 import Navbar from "../../Components/Navbar/Navbar";
 import ProfileLeftbar from "../../Components/ProfileLeftContainer/ProfileLeftbar";
 import ProfileRightbar from "../../Components/ProfileRightContainer/ProfileRightbar";
-import Mainpost from "../../Components/MainPostcontainer/Mainpost";
+import ProfileMainpost from "../../Components/ProfileMainpostContainer/ProfileMainpost";
 
 const Profile = () => {
   return (
@@ -11,7 +11,7 @@ const Profile = () => {
       <Navbar />
       <div className="subProfileContainer">
         <ProfileLeftbar />
-        <Mainpost />
+        <ProfileMainpost />
         <ProfileRightbar />
       </div>
     </div>

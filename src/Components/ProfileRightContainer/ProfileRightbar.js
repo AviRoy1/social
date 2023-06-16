@@ -13,50 +13,135 @@ import addFriend from "../images/add-user.png";
 const ProfileRightbar = () => {
   return (
     <div className="profilerightbar">
-      <div className="rightcontainer">
-        <div className="adsContainer">
-          <img src={`${ads}`} className="adsimg" alt="" />
+      <div className="profilerightcontainer">
+        <h3 style={{ marginLeft: "15px" }}>Friend requests</h3>
+        <div>
           <div>
-            <p
+            <div
               style={{
-                textAlign: "start",
-                marginLeft: "10px",
-                marginTop: -20,
+                display: "flex",
+                alignItems: "center",
+                marginLeft: 10,
+                cursor: "pointer",
               }}>
-              CodeDemy
-            </p>
-            <p
-              style={{
-                textAlign: "start",
-                marginLeft: "10px",
-                fontSize: "10px",
-                marginTop: "-16px",
-              }}>
-              Buy Codedemy courses
-            </p>
+              <img src={`${image1}`} className="Friendsimage" alt="" />
+              <p style={{ textAlign: "start", marginLeft: "10px" }}>
+                Akash Dkl want to make your friend
+              </p>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <button
+                style={{
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  border: "none",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "10px",
+                }}>
+                Accept
+              </button>
+              <button
+                style={{
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  border: "none",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "10px",
+                }}>
+                Deny
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div className="adsContainer">
-          <img src={`${image1}`} className="adsimg" alt="" />
           <div>
-            <p
+            <div
               style={{
-                textAlign: "start",
-                marginLeft: "10px",
-                marginTop: -20,
+                display: "flex",
+                alignItems: "center",
+                marginLeft: 10,
+                cursor: "pointer",
               }}>
-              CodeDemy
-            </p>
-            <p
+              <img src={`${image3}`} className="Friendsimage" alt="" />
+              <p style={{ textAlign: "start", marginLeft: "10px" }}>
+                Jimmy Loop want to make your friend
+              </p>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <button
+                style={{
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  border: "none",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "10px",
+                }}>
+                Accept
+              </button>
+              <button
+                style={{
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  border: "none",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "10px",
+                }}>
+                Deny
+              </button>
+            </div>
+          </div>
+          <div>
+            <div
               style={{
-                textAlign: "start",
-                marginLeft: "10px",
-                fontSize: "10px",
-                marginTop: "-16px",
+                display: "flex",
+                alignItems: "center",
+                marginLeft: 10,
+                cursor: "pointer",
               }}>
-              Buy Codedemy courses
-            </p>
+              <img src={`${image5}`} className="Friendsimage" alt="" />
+              <p style={{ textAlign: "start", marginLeft: "10px" }}>
+                Fghyu Dalal want to make your friend
+              </p>
+            </div>
+            <div style={{ display: "flex", justifyContent: "space-around" }}>
+              <button
+                style={{
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  border: "none",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "10px",
+                }}>
+                Accept
+              </button>
+              <button
+                style={{
+                  paddingLeft: "30px",
+                  paddingRight: "30px",
+                  paddingTop: 5,
+                  paddingBottom: 5,
+                  border: "none",
+                  backgroundColor: "black",
+                  color: "white",
+                  borderRadius: "10px",
+                }}>
+                Deny
+              </button>
+            </div>
           </div>
         </div>
       </div>

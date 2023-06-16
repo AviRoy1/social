@@ -74,9 +74,15 @@ const ProfileLeftbar = () => {
         </div>
         {/* <hr style={{ marginTop: -10 }} /> */}
         <div style={{ marginTop: -10 }}>
-          <h1 style={{ color: "black", marginLeft: 100, fontSize: "17px" }}>
+          <h2
+            style={{
+              color: "black",
+              marginLeft: 10,
+              fontSize: "17px",
+              textAlign: "start",
+            }}>
             User Bio
-          </h1>
+          </h2>
           <p
             style={{
               color: "black",

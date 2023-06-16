@@ -1,12 +1,14 @@
 .profilerightbar {
     flex: 1;
 }
-.rightcontainer {
+.profilerightcontainer {
     width: 20pc;
-    height: 30vh;
+    height: 34vh;
     background-color: white;
     margin-top: 20px;
     border-radius: 15px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 .rightcontainer2 {
     width: 20pc;
@@ -36,4 +38,11 @@
     width: 20px;
     height: 20px; 
     /* margin-right: 10px; */
+}
+.Friendsimage {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 10px;
+
 }
