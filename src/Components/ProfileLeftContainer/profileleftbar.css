@@ -15,6 +15,7 @@
     border-radius: 50%;
     height: 60px;
     object-fit: cover;
+    margin-left: 10px;
 }
 .ProfilepageCover {
     width: 270px;

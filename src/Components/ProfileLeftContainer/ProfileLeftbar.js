@@ -15,8 +15,78 @@ const ProfileLeftbar = () => {
         <img src={`${image}`} className="ProfilepageCover" alt="" />
         <div style={{ display: "flex", alignItems: "center", marginTop: -30 }}>
           <img src={`${image2}`} className="ProfilepageImage" alt="" />
-          <p style={{ marginLeft: 10, marginTop: 24, color: "white" }}>
-            Avijit
+          <div>
+            <h3
+              style={{
+                marginLeft: 10,
+                marginTop: 24,
+                color: "white",
+                textAlign: "start",
+              }}>
+              Avijit
+            </h3>
+            <p
+              style={{
+                marginLeft: 10,
+                marginTop: 24,
+                color: "white",
+                textAlign: "start",
+                marginTop: -16,
+                fontSize: 13,
+              }}>
+              Web Developer
+            </p>
+          </div>
+        </div>
+        <div style={{ display: "flex", justifyContent: "space-between" }}>
+          <p style={{ color: "white", marginLeft: 20, fontSize: "14px" }}>
+            Profile Views
+          </p>
+          <p
+            style={{
+              color: "white",
+              marginRight: 20,
+              fontSize: "12px",
+              marginTop: 17,
+            }}>
+            43
+          </p>
+        </div>
+
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginTop: -20,
+          }}>
+          <p style={{ color: "white", marginLeft: 20, fontSize: "14px" }}>
+            Friends
+          </p>
+          <p
+            style={{
+              color: "white",
+              marginRight: 20,
+              fontSize: "12px",
+              marginTop: 17,
+            }}>
+            43
+          </p>
+        </div>
+        <div style={{ marginTop: -20 }}>
+          <h1 style={{ color: "white", marginLeft: 100, fontSize: "17px" }}>
+            User Bio
+          </h1>
+          <p
+            style={{
+              color: "white",
+              marginRight: 20,
+              fontSize: "14px",
+              marginTop: -10,
+              marginLeft: 10,
+              marginRight: 10,
+              textAlign: "start",
+            }}>
+            This my bio.....xxsdwdwd....dwdwdw......he kklsol wdwkdn lksms
           </p>
         </div>
       </div>
