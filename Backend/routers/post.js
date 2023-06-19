@@ -84,7 +84,7 @@ router.put("/:id/dislike", verifytoken, async (req, res) => {
 });
 
 //  Comment
-router.put("/id/comment", verifytoken, async (req, res) => {
+router.put("/comment/post", verifytoken, async (req, res) => {
   try {
     const { comment, postid } = req.body;
     const comments = {
@@ -96,6 +96,21 @@ router.put("/id/comment", verifytoken, async (req, res) => {
     post.comments.push(comments);
     await post.save();
     res.status(200).json(post);
+  } catch (error) {
+    res.status(500).json("Internal error occure");
+  }
+});
+
+//  Delete post
+router.delete("/delete/post/:id", verifytoken, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+    if (post.user === req.user.id) {
+      const deletepost = await Post.findByIdAndDelete(req.params.id);
+      return res.status(200).json("Your post has been deleted");
+    } else {
+      return res.status(400).json("You are not allow to delete this post");
+    }
   } catch (error) {
     res.status(500).json("Internal error occure");
   }

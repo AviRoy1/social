@@ -121,4 +121,41 @@ router.get("/flw/:id", verifytoken, async (req, res) => {
   }
 });
 
+//  Update User Profile
+router.put("/update/:id", verifytoken, async (req, res) => {
+  try {
+    if (!(req.params.id !== req.user.id)) {
+      return res
+        .status(500)
+        .json("You are not allow to update this user account");
+    }
+    if (req.body.password) {
+      const salt = await bcrypt.genSalt(10);
+      const secpass = await bcrypt.hash(req.body.password, salt);
+      req.body.password = secpass;
+      const updateuser = await User.findByIdAndUpdate(req.params.id, {
+        $set: req.body,
+      });
+      await updateuser.save();
+      res.status(200).json(updateuser);
+    }
+  } catch (error) {
+    return res.status(500).json("Internal server error");
+  }
+});
+
+//  Delete user account
+router.delete("/delete/:id", verifytoken, async (req, res) => {
+  try {
+    if (req.params.id !== req.user.id) {
+      return res.status(400).json("Account doesn't match");
+    } else {
+      await User.findByIdAndDelete(req.params.id);
+      return res.status(200).json("User account has been deleted");
+    }
+  } catch (error) {
+    return res.status(500).json("Internal server error");
+  }
+});
+
 module.exports = router;
