@@ -14,9 +14,9 @@ const ProfileRightbar = () => {
   return (
     <div className="profilerightbar">
       <div className="profilerightcontainer">
-        <h3 style={{ marginLeft: "15px" }}>Friend requests</h3>
+        <h3 style={{ marginLeft: "15px" }}>Followers</h3>
         <div>
-          <div>
+          <div style={{ marginTop: "10px" }}>
             <div
               style={{
                 display: "flex",
@@ -26,40 +26,12 @@ const ProfileRightbar = () => {
               }}>
               <img src={`${image1}`} className="Friendsimage" alt="" />
               <p style={{ textAlign: "start", marginLeft: "10px" }}>
-                Akash Dkl want to make your friend
+                Akash Dkl
               </p>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <button
-                style={{
-                  paddingLeft: "30px",
-                  paddingRight: "30px",
-                  paddingTop: 5,
-                  paddingBottom: 5,
-                  border: "none",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "10px",
-                }}>
-                Accept
-              </button>
-              <button
-                style={{
-                  paddingLeft: "30px",
-                  paddingRight: "30px",
-                  paddingTop: 5,
-                  paddingBottom: 5,
-                  border: "none",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "10px",
-                }}>
-                Deny
-              </button>
             </div>
           </div>
 
-          <div>
+          <div style={{ marginTop: "10px" }}>
             <div
               style={{
                 display: "flex",
@@ -69,39 +41,11 @@ const ProfileRightbar = () => {
               }}>
               <img src={`${image3}`} className="Friendsimage" alt="" />
               <p style={{ textAlign: "start", marginLeft: "10px" }}>
-                Jimmy Loop want to make your friend
+                Jimmy Loop
               </p>
             </div>
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <button
-                style={{
-                  paddingLeft: "30px",
-                  paddingRight: "30px",
-                  paddingTop: 5,
-                  paddingBottom: 5,
-                  border: "none",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "10px",
-                }}>
-                Accept
-              </button>
-              <button
-                style={{
-                  paddingLeft: "30px",
-                  paddingRight: "30px",
-                  paddingTop: 5,
-                  paddingBottom: 5,
-                  border: "none",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "10px",
-                }}>
-                Deny
-              </button>
-            </div>
           </div>
-          <div>
+          <div style={{ marginTop: "10px" }}>
             <div
               style={{
                 display: "flex",
@@ -111,36 +55,8 @@ const ProfileRightbar = () => {
               }}>
               <img src={`${image5}`} className="Friendsimage" alt="" />
               <p style={{ textAlign: "start", marginLeft: "10px" }}>
-                Fghyu Dalal want to make your friend
+                Fghyu Dalal
               </p>
-            </div>
-            <div style={{ display: "flex", justifyContent: "space-around" }}>
-              <button
-                style={{
-                  paddingLeft: "30px",
-                  paddingRight: "30px",
-                  paddingTop: 5,
-                  paddingBottom: 5,
-                  border: "none",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "10px",
-                }}>
-                Accept
-              </button>
-              <button
-                style={{
-                  paddingLeft: "30px",
-                  paddingRight: "30px",
-                  paddingTop: 5,
-                  paddingBottom: 5,
-                  border: "none",
-                  backgroundColor: "black",
-                  color: "white",
-                  borderRadius: "10px",
-                }}>
-                Deny
-              </button>
             </div>
           </div>
         </div>
