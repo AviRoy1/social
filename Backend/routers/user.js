@@ -117,6 +117,7 @@ router.get("/flw/:id", verifytoken, async (req, res) => {
     );
     res.status(200).json(followersPost);
   } catch (error) {
+    // console.log(error);
     return res.status(500).json("Internal server error");
   }
 });
@@ -153,6 +154,21 @@ router.delete("/delete/:id", verifytoken, async (req, res) => {
       await User.findByIdAndDelete(req.params.id);
       return res.status(200).json("User account has been deleted");
     }
+  } catch (error) {
+    return res.status(500).json("Internal server error");
+  }
+});
+
+// get user details for post
+router.get("/post/user/details/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(400).json("User not found");
+    }
+    const { email, password, phonenumber, followers, following, ...others } =
+      user._doc;
+    res.status(200).json(others);
   } catch (error) {
     return res.status(500).json("Internal server error");
   }

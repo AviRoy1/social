@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./post.css";
 import ProfileImage from "../images/Profile.png";
 import LikeIcon from "../images/like.png";
@@ -6,13 +6,31 @@ import Commenticon from "../images/speech-bubble.png";
 import ShareIcon from "../images/share.png";
 import MoreOptions from "../images/more.png";
 import anotherlikeicon from "../images/setLike.png";
+import axios from "axios";
 
-const Post = () => {
+const Post = ({ post }) => {
   const [like, setLike] = useState(LikeIcon);
-  const [count, setCount] = useState(10);
+  const [count, setCount] = useState(post.like.length);
   const [comment, setComment] = useState([]);
   const [commentwriting, setCommentwriting] = useState("");
   const [show, setShow] = useState(false);
+
+  const [user, setUser] = useState([]);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/user/post/user/details/${post.user}`
+        );
+        setUser(res.data);
+      } catch (error) {
+        console.log("Some error occured");
+      }
+    };
+    getUser();
+  }, []);
+
+  // console.log(user);
 
   const handleLike = () => {
     if (like === LikeIcon) {
@@ -47,9 +65,16 @@ const Post = () => {
       <div className="SubPostContainer">
         <div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <img src={`${ProfileImage}`} className="PostImage" alt="" />
+            {user !== undefined ? (
+              <img src={`${user.profile}`} className="PostImage" alt="" />
+            ) : (
+              <img src={`${ProfileImage}`} className="PostImage" alt="" />
+            )}
+
             <div>
-              <p style={{ marginLeft: "5px", textAlign: "start" }}>Avijit</p>
+              <p style={{ marginLeft: "5px", textAlign: "start" }}>
+                {user !== undefined ? user.username : "Avijit"}
+              </p>
               <p
                 style={{
                   fontSize: "12px",
@@ -70,10 +95,10 @@ const Post = () => {
               marginLeft: 16,
               marginTop: 4,
             }}>
-            wfwfm m fmwjforo 3ro3rdasmdnvjbfalmdd oqpqepqkd;qmfnwfnwnwf
-            lldmqldmqdmcnjdoqjoqd ndqolqmlqmd .....
+            {post.title}
           </p>
-          <img src={`${ProfileImage}`} className="PostImages" alt="" />
+          <img src={`${post.image}`} className="PostImages" alt="" />
+
           <div style={{ display: "flex" }}>
             <div style={{ display: "flex", marginLeft: "10px" }}>
               <div
@@ -99,7 +124,7 @@ const Post = () => {
                 }}>
                 <img src={`${Commenticon}`} className="IconsforPost" alt="" />
                 <p style={{ marginLeft: "6px" }} onClick={handleshow}>
-                  10K Comments
+                  {post.comments.length} Comments
                 </p>
               </div>
             </div>

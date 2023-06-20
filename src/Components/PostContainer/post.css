@@ -15,9 +15,9 @@
     margin-left: 10px;
 }
 .PostImages {
-    width: 420px;
-    height: 420px;
-    object-fit: contain;
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
     margin-left: 35px;
     border-radius: 10px;
 }

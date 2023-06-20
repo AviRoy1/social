@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const app = express();
 const userRoutes = require("./routers/user");
 const postRouter = require("./routers/post");
+const cors = require("cors");
 
 dotenv.config();
 
@@ -14,6 +15,7 @@ mongoose
     console.log("Some error occured");
   });
 
+app.use(cors());
 app.use(express.json());
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRouter);
