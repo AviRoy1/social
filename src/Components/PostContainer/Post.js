@@ -9,7 +9,13 @@ import anotherlikeicon from "../images/setLike.png";
 import axios from "axios";
 
 const Post = ({ post }) => {
-  const [like, setLike] = useState(LikeIcon);
+  const userId = "6490456d1f0d9ef7234d8e5d";
+  const accessToken =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMxNzc0OX0.lkzY49Jm6OpYi1LAFoOOCl_AzyOp-DafAUbJsiO4Xw8";
+
+  const [like, setLike] = useState([
+    post.like.includes(userId) ? anotherlikeicon : LikeIcon,
+  ]);
   const [count, setCount] = useState(post.like.length);
   const [comment, setComment] = useState([]);
   const [commentwriting, setCommentwriting] = useState("");
@@ -32,11 +38,19 @@ const Post = ({ post }) => {
 
   // console.log(user);
 
-  const handleLike = () => {
-    if (like === LikeIcon) {
+  const handleLike = async () => {
+    if (like == LikeIcon) {
+      await fetch(`http://localhost:5000/api/post/${post._id}/like`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json", token: accessToken },
+      });
       setLike(anotherlikeicon);
       setCount(count + 1);
     } else {
+      await fetch(`http://localhost:5000/api/post/${post._id}/like`, {
+        method: "PUT",
+        headers: { "Content-type": "application/json", token: accessToken },
+      });
       setLike(LikeIcon);
       setCount(count - 1);
     }

@@ -54,16 +54,19 @@ router.put("/update/post/:id", verifytoken, async (req, res) => {
 // Like
 router.put("/:id/like", verifytoken, async (req, res) => {
   try {
-    let post = await Post.findById(req.params.id);
-    if (!post.like.includes(req.body.user)) {
-      await post.updateOne({ $push: { like: req.body.user } });
+    const post = await Post.findById(req.params.id);
+    if (!post.like.includes(req.user.id)) {
+      // if (post.dislike.includes(req.user.id)) {
+      //   await post.updateOne({ $pull: { dislike: req.user.id } });
+      // }
+      await post.updateOne({ $push: { like: req.user.id } });
       return res.status(200).json("Post has been liked");
     } else {
-      await post.updateOne({ $pull: { like: req.body.user } });
-      return res.status(200).json("Post has been unliked");
+      await post.updateOne({ $pull: { like: req.user.id } });
+      return res.status(200).json("Post has been unlike");
     }
   } catch (error) {
-    res.status(500).json("Internal error occure");
+    return res.status(500).json("Internal server error ");
   }
 });
 

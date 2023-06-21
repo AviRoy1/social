@@ -94,12 +94,15 @@ router.put("/following/:id", verifytoken, async (req, res) => {
   if (req.params.id !== req.body.user) {
     const user = await User.findById(req.params.id);
     const otheruser = await User.findById(req.body.user);
-    if (!user.followers.includes(req.body.user)) {
-      await user.updateOne({ $push: { followers: req.body.user } });
-      await otheruser.updateOne({ $push: { following: req.params.id } });
-      return res.status(200).json("User has following");
+
+    if (!user.Followers.includes(req.body.user)) {
+      await user.updateOne({ $push: { Followers: req.body.user } });
+      await otheruser.updateOne({ $push: { Following: req.params.id } });
+      return res.status(200).json("User has followed");
     } else {
-      return res.status(400).json("You already follow this user");
+      await user.updateOne({ $pull: { Followers: req.body.user } });
+      await otheruser.updateOne({ $pull: { Following: req.params.id } });
+      return res.status(200).json("User has Unfollowed");
     }
   } else {
     return res.status(400).json("You can't follow yourself");
@@ -169,6 +172,42 @@ router.get("/post/user/details/:id", async (req, res) => {
     const { email, password, phonenumber, followers, following, ...others } =
       user._doc;
     res.status(200).json(others);
+  } catch (error) {
+    return res.status(500).json("Internal server error");
+  }
+});
+
+//  get user to follow
+router.get("/all/user", verifytoken, async (req, res) => {
+  try {
+    const alluser = await User.find();
+    const user = await User.findById(req.user.id);
+    const followinguser = await Promise.all(
+      user.following.map((item) => {
+        return item;
+      })
+    );
+
+    let UsertoFollow = alluser.filter((val) => {
+      return !followinguser.find((item) => {
+        return val._id.toString() === item;
+      });
+    });
+
+    let filteruser = await Promise.all(
+      UsertoFollow.map((item) => {
+        const {
+          email,
+          password,
+          followers,
+          following,
+          phonenumber,
+          ...others
+        } = item._doc;
+        return others;
+      })
+    );
+    res.status(200).json(filteruser);
   } catch (error) {
     return res.status(500).json("Internal server error");
   }
