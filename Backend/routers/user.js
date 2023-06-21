@@ -178,10 +178,10 @@ router.get("/post/user/details/:id", async (req, res) => {
 });
 
 //  get user to follow
-router.get("/all/user", verifytoken, async (req, res) => {
+router.get("/all/user/:id", async (req, res) => {
   try {
     const alluser = await User.find();
-    const user = await User.findById(req.user.id);
+    const user = await User.findById(req.params.id);
     const followinguser = await Promise.all(
       user.following.map((item) => {
         return item;

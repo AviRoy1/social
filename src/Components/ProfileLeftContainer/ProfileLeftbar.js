@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./profileleftbar.css";
 import image from "../images/Profile.png";
 import image1 from "../images/image1.jpg";
@@ -7,8 +7,26 @@ import image3 from "../images/image3.jpg";
 import image4 from "../images/image4.jpg";
 import image5 from "../images/image5.jpg";
 import image6 from "../images/image6.jpg";
+import axios from "axios";
 
 const ProfileLeftbar = () => {
+  const [Followinguser, setFollowinguser] = useState([]);
+  useEffect(() => {
+    const getFollowing = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/post/following/6490456d1f0d9ef7234d8e5d`
+        );
+        setFollowinguser(res.data);
+      } catch (error) {
+        console.log("error occurs");
+      }
+    };
+    getFollowing();
+  }, []);
+
+  // console.log(Followinguser);
+
   return (
     <div className="ProfileLeftbar">
       <div className="NotificationContainer">
@@ -117,30 +135,12 @@ const ProfileLeftbar = () => {
         </div>
         <div>
           <div style={{ display: "flex", flexWrap: "wrap", marginLeft: 5 }}>
-            <div style={{ marginLeft: 4, cursor: "pointer" }}>
-              <img src={`${image1}`} className="friendImage" alt="" />
-              <p style={{ marginTop: -2 }}>Paves Dan</p>
-            </div>
-            <div style={{ marginLeft: 4, cursor: "pointer" }}>
-              <img src={`${image2}`} className="friendImage" alt="" />
-              <p style={{ marginTop: -2 }}>Samn Dev</p>
-            </div>
-            <div style={{ marginLeft: 4, cursor: "pointer" }}>
-              <img src={`${image3}`} className="friendImage" alt="" />
-              <p style={{ marginTop: -2 }}>Kunal Kam</p>
-            </div>
-            <div style={{ marginLeft: 4, cursor: "pointer" }}>
-              <img src={`${image6}`} className="friendImage" alt="" />
-              <p style={{ marginTop: -2 }}>SK lund</p>
-            </div>
-            <div style={{ marginLeft: 4, cursor: "pointer" }}>
-              <img src={`${image5}`} className="friendImage" alt="" />
-              <p style={{ marginTop: -2 }}>Urman</p>
-            </div>
-            <div style={{ marginLeft: 4, cursor: "pointer" }}>
-              <img src={`${image1}`} className="friendImage" alt="" />
-              <p style={{ marginTop: -2 }}>Bikas DD</p>
-            </div>
+            {Followinguser.map((item) => (
+              <div style={{ marginLeft: 4, cursor: "pointer" }} key={item._id}>
+                <img src={`${item.profile}`} className="friendImage" alt="" />
+                <p style={{ marginTop: -2 }}>{item.username}</p>
+              </div>
+            ))}
           </div>
         </div>
       </div>

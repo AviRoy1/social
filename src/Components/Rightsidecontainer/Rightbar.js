@@ -14,16 +14,14 @@ import Follow from "./follow";
 
 const Rightbar = () => {
   const [users, setUsers] = useState([]);
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
+  // const accessToken =
+  //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
   useEffect(() => {
     const getUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/user/all/user`, {
-          headers: {
-            token: accessToken,
-          },
-        });
+        const res = await axios.get(
+          `http://localhost:5000/api/user/all/user/6490456d1f0d9ef7234d8e5d`
+        );
         setUsers(res.data);
       } catch (error) {
         console.log("Some error occured");

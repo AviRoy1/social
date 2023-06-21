@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./profilemainpost.css";
 import Contentpost from "../ContentPostContainer/Contentpost";
-import Post from "../PostContainer/Post";
+import Post from "../ProfilePostContainer/Post";
 import Coverimage from "../images/Profile.png";
 import axios from "axios";
 
@@ -14,11 +14,9 @@ const ProfileMainpost = () => {
   useEffect(() => {
     const getPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/post/get/post`, {
-          headers: {
-            token: accessToken,
-          },
-        });
+        const res = await axios.get(
+          `http://localhost:5000/api/post/get/post/6490456d1f0d9ef7234d8e5d`
+        );
         setPost(res.data);
       } catch (error) {
         console.log("error occured");
@@ -26,7 +24,7 @@ const ProfileMainpost = () => {
     };
     getPost();
   }, []);
-
+  // console.log(post);
   return (
     <div className="profilemainpostContainer">
       <div>

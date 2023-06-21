@@ -1,6 +1,7 @@
 const express = require("express");
 const Post = require("../models/Post");
 const { verifytoken } = require("./verifyToken");
+const User = require("../models/User");
 
 const router = express.Router();
 
@@ -22,9 +23,9 @@ router.post("/user/post", verifytoken, async (req, res) => {
 });
 
 //  Upload post by one user
-router.get("/get/post", verifytoken, async (req, res) => {
+router.get("/get/post/:id", async (req, res) => {
   try {
-    const mypost = await Post.find({ user: req.user.id });
+    const mypost = await Post.find({ user: req.params.id });
     if (!mypost) {
       return res.status(200).json("You don't have any post");
     }
@@ -114,6 +115,50 @@ router.delete("/delete/post/:id", verifytoken, async (req, res) => {
     } else {
       return res.status(400).json("You are not allow to delete this post");
     }
+  } catch (error) {
+    res.status(500).json("Internal error occure");
+  }
+});
+
+//  Get all following users
+router.get("/following/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const followingusers = await Promise.all(
+      user.following.map((item) => {
+        return User.findById(item);
+      })
+    );
+
+    let followingusrsList = [];
+    followingusers.map((item) => {
+      const { phonenumber, email, password, following, followers, ...others } =
+        item._doc;
+      followingusrsList.push(others);
+    });
+    return res.status(200).json(followingusrsList);
+  } catch (error) {
+    res.status(500).json("Internal error occure");
+  }
+});
+
+//  Get all followers
+router.get("/followers/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    const followingusers = await Promise.all(
+      user.followers.map((item) => {
+        return User.findById(item);
+      })
+    );
+
+    let followersList = [];
+    followingusers.map((item) => {
+      const { phonenumber, email, password, following, followers, ...others } =
+        item._doc;
+      followersList.push({ others });
+    });
+    return res.status(200).json(followersList);
   } catch (error) {
     res.status(500).json("Internal error occure");
   }

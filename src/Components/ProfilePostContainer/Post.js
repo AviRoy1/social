@@ -8,15 +8,8 @@ import MoreOptions from "../images/more.png";
 import anotherlikeicon from "../images/setLike.png";
 import axios from "axios";
 
-const Post = ({ post }) => {
-  const userId = "6490456d1f0d9ef7234d8e5d";
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
-
-  const [like, setLike] = useState([
-    post.like.includes(userId) ? anotherlikeicon : LikeIcon,
-  ]);
-  const [count, setCount] = useState(post.like.length);
+const Post = ({ detail }) => {
+  const [count, setCount] = useState(0);
   const [comment, setComment] = useState([]);
   const [commentwriting, setCommentwriting] = useState("");
   const [show, setShow] = useState(false);
@@ -26,7 +19,7 @@ const Post = ({ post }) => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/user/post/user/details/${post.user}`
+          `http://localhost:5000/api/user/post/user/details/${detail.user}`
         );
         setUser(res.data);
       } catch (error) {
@@ -36,24 +29,22 @@ const Post = ({ post }) => {
     getUser();
   }, []);
 
-  // console.log(user);
-
   const handleLike = async () => {
-    if (like == LikeIcon) {
-      await fetch(`http://localhost:5000/api/post/${post._id}/like`, {
-        method: "PUT",
-        headers: { "Content-type": "application/json", token: accessToken },
-      });
-      setLike(anotherlikeicon);
-      setCount(count + 1);
-    } else {
-      await fetch(`http://localhost:5000/api/post/${post._id}/like`, {
-        method: "PUT",
-        headers: { "Content-type": "application/json", token: accessToken },
-      });
-      setLike(LikeIcon);
-      setCount(count - 1);
-    }
+    // if (like == LikeIcon) {
+    //   await fetch(`http://localhost:5000/api/post/${post._id}/like`, {
+    //     method: "PUT",
+    //     headers: { "Content-type": "application/json", token: accessToken },
+    //   });
+    //   setLike(anotherlikeicon);
+    //   setCount(count + 1);
+    // } else {
+    //   await fetch(`http://localhost:5000/api/post/${post._id}/like`, {
+    //     method: "PUT",
+    //     headers: { "Content-type": "application/json", token: accessToken },
+    //   });
+    //   setLike(LikeIcon);
+    //   setCount(count - 1);
+    // }
   };
   const addComment = () => {
     const comm = {
@@ -79,15 +70,11 @@ const Post = ({ post }) => {
       <div className="SubPostContainer">
         <div>
           <div style={{ display: "flex", alignItems: "center" }}>
-            {user !== undefined ? (
-              <img src={`${user.profile}`} className="PostImage" alt="" />
-            ) : (
-              <img src={`${ProfileImage}`} className="PostImage" alt="" />
-            )}
+            <img src={`${user.profile}`} className="PostImage" alt="" />
 
             <div>
               <p style={{ marginLeft: "5px", textAlign: "start" }}>
-                {user !== undefined ? user.username : "Avijit"}
+                {!user.username ? "Tester" : user.username}
               </p>
               <p
                 style={{
@@ -106,12 +93,12 @@ const Post = ({ post }) => {
             style={{
               textAlign: "start",
               width: "94%",
-              marginLeft: 16,
-              marginTop: 4,
+              marginLeft: 36,
+              marginTop: 7,
             }}>
-            {post.title}
+            {detail.title}
           </p>
-          <img src={`${post.image}`} className="PostImages" alt="" />
+          <img src={`${detail.image}`} className="PostImages" alt="" />
 
           <div style={{ display: "flex" }}>
             <div style={{ display: "flex", marginLeft: "10px" }}>
@@ -121,13 +108,13 @@ const Post = ({ post }) => {
                   alignItems: "center",
                   cursor: "pointer",
                 }}>
-                <img
+                {/* <img
                   src={`${like}`}
                   className="IconsforPost"
                   onClick={handleLike}
                   alt=""
-                />
-                <p style={{ marginLeft: "6px" }}>{count} Likes</p>
+                /> */}
+                <p style={{ marginLeft: "6px" }}>{detail.like.length} Likes</p>
               </div>
               <div
                 style={{
@@ -138,7 +125,7 @@ const Post = ({ post }) => {
                 }}>
                 <img src={`${Commenticon}`} className="IconsforPost" alt="" />
                 <p style={{ marginLeft: "6px" }} onClick={handleshow}>
-                  {post.comments.length} Comments
+                  {detail.comments.length} Comments
                 </p>
               </div>
             </div>
