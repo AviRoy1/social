@@ -6,7 +6,7 @@ import axios from "axios";
 
 const Mainpost = () => {
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMxNzc0OX0.lkzY49Jm6OpYi1LAFoOOCl_AzyOp-DafAUbJsiO4Xw8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
   const [post, setPost] = useState([]);
   useEffect(() => {
     const getPost = async () => {

@@ -5,7 +5,7 @@ import userToFollow from "../images/afterFollowImg.png";
 const Follow = ({ userdetail }) => {
   const [follow, setFollow] = useState(addFriend);
   const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMxNzc0OX0.lkzY49Jm6OpYi1LAFoOOCl_AzyOp-DafAUbJsiO4Xw8";
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
 
   const handlefollow = async (e) => {
     await fetch(`http://localhost:5000/api/user/following/${userdetail._id}`, {

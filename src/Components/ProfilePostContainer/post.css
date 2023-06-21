@@ -1,0 +1,48 @@
+.PostContainer {
+
+}
+.SubPostContainer {
+    width: 93%;
+    background-color: white;
+    margin-top: 20px;
+    margin-left: 10px;
+    border-radius: 10px;
+}
+.PostImage {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+.PostImages {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+    margin-left: 35px;
+    border-radius: 10px;
+}
+.IconsforPost {
+    width:20px;
+    margin-left: 14px;
+}
+.MoreIcons{
+    width: 30px;
+    margin-left: 300px;
+}
+.commentinput {
+    width: 25pc;
+    margin-left: 10px;
+    border: none;
+    /* height: 6vh; */
+}
+.addCommentBtn{
+    padding: 9px;
+    border: none;
+    background-color: black;
+    color: white;
+    border-radius: 7px;
+    margin-left: 13px;
+    cursor: pointer;
+    padding-left: 40px;
+    padding-right: 40px;
+}
