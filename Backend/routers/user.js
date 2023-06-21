@@ -95,13 +95,13 @@ router.put("/following/:id", verifytoken, async (req, res) => {
     const user = await User.findById(req.params.id);
     const otheruser = await User.findById(req.body.user);
 
-    if (!user.Followers.includes(req.body.user)) {
-      await user.updateOne({ $push: { Followers: req.body.user } });
-      await otheruser.updateOne({ $push: { Following: req.params.id } });
+    if (!user.followers.includes(req.body.user)) {
+      await user.updateOne({ $push: { followers: req.body.user } });
+      await otheruser.updateOne({ $push: { following: req.params.id } });
       return res.status(200).json("User has followed");
     } else {
-      await user.updateOne({ $pull: { Followers: req.body.user } });
-      await otheruser.updateOne({ $pull: { Following: req.params.id } });
+      await user.updateOne({ $pull: { followers: req.body.user } });
+      await otheruser.updateOne({ $pull: { following: req.params.id } });
       return res.status(200).json("User has Unfollowed");
     }
   } else {

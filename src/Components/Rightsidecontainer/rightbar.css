@@ -9,11 +9,13 @@
     border-radius: 15px;
 }
 .rightcontainer2 {
-    width: 20pc;
+    width: 20pc; 
     height: 60vh;
     background-color: white;
     margin-top: 20px;
     border-radius: 15px;
+    overflow: hidden;
+    overflow-y: scroll;
 }
 .adsimg {
     width: 130px;
