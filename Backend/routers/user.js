@@ -171,8 +171,7 @@ router.get("/post/user/details/:id", async (req, res) => {
     if (!user) {
       return res.status(400).json("User not found");
     }
-    const { email, password, phonenumber, followers, following, ...others } =
-      user._doc;
+    const { email, password, phonenumber, ...others } = user._doc;
     res.status(200).json(others);
   } catch (error) {
     return res.status(500).json("Internal server error");

@@ -9,16 +9,32 @@ import image5 from "../images/image5.jpg";
 import image6 from "../images/image6.jpg";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { Link, useLocation } from "react-router-dom";
 
 const ProfileLeftbar = () => {
+  let location = useLocation();
+  const id = location.pathname.split("/")[2];
+  const [users, setUser] = useState([]);
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/user/post/user/details/${id}`
+        );
+        setUser(res.data);
+      } catch (error) {
+        console.log("Some error occured");
+      }
+    };
+    getUser();
+  }, []);
+
   const userDetails = useSelector((state) => state.user);
   const user = userDetails.user;
-  const id = user.other._id;
-  let username = !user.other.username ? "Tester1" : user.other.username;
-  let followerscount = user.other.followers.length;
-  let followingcount = user.other.following.length;
-  console.log(user.other);
-  console.log(user.other);
+  let username = !users.username ? "Tester1" : users.username;
+  let followerscount = users?.followers?.length;
+  let followingcount = users?.following?.length;
+
   const [Followinguser, setFollowinguser] = useState([]);
   useEffect(() => {
     const getFollowing = async () => {
@@ -41,11 +57,7 @@ const ProfileLeftbar = () => {
       <div className="NotificationContainer">
         <img src={`${image}`} className="ProfilepageCover" alt="" />
         <div style={{ display: "flex", alignItems: "center", marginTop: -30 }}>
-          <img
-            src={`${user.other.profile}`}
-            className="ProfilepageImage"
-            alt=""
-          />
+          <img src={`${users.profile}`} className="ProfilepageImage" alt="" />
           <div>
             <h3
               style={{
@@ -127,17 +139,33 @@ const ProfileLeftbar = () => {
             This my bio.....xxsdwdwd....dwdwdw......he kklsol wdwkdn lksms
           </p>
         </div>
-        <button
-          style={{
-            width: "100%",
-            paddingTop: 7,
-            paddingBottom: 7,
-            border: "none",
-            backgroundColor: "green",
-            color: "black",
-          }}>
-          Edit Bio
-        </button>
+        {user.other._id !== id ? (
+          <div>
+            <button
+              style={{
+                width: "100%",
+                paddingTop: 7,
+                paddingBottom: 7,
+                border: "none",
+                backgroundColor: "green",
+                color: "black",
+              }}>
+              Follow
+            </button>
+          </div>
+        ) : (
+          <button
+            style={{
+              width: "100%",
+              paddingTop: 7,
+              paddingBottom: 7,
+              border: "none",
+              backgroundColor: "green",
+              color: "black",
+            }}>
+            Edit Bio
+          </button>
+        )}
       </div>
 
       <div className="NotificationContainer">
@@ -149,10 +177,14 @@ const ProfileLeftbar = () => {
         <div>
           <div style={{ display: "flex", flexWrap: "wrap", marginLeft: 5 }}>
             {Followinguser.map((item) => (
-              <div style={{ marginLeft: 4, cursor: "pointer" }} key={item._id}>
-                <img src={`${item.profile}`} className="friendImage" alt="" />
-                <p style={{ marginTop: -2 }}>{item.username}</p>
-              </div>
+              <Link to={`/Profile/${item._id}`}>
+                <div
+                  style={{ marginLeft: 4, cursor: "pointer" }}
+                  key={item._id}>
+                  <img src={`${item.profile}`} className="friendImage" alt="" />
+                  <p style={{ marginTop: -2 }}>{item.username}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>

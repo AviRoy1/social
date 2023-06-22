@@ -4,11 +4,14 @@ import ads from "../images/ads.jpg";
 import axios from "axios";
 import Follow from "../Rightsidecontainer/follow";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 const ProfileRightbar = () => {
   const userDetails = useSelector((state) => state.user);
   const user = userDetails.user;
-  const id = user.other._id;
+  let location = useLocation();
+  const id = location.pathname.split("/")[2];
+  let idforSuggest = user?.other?._id;
   let username = !user.other.username ? "Tester1" : user.other.username;
   const [Followers, setFollowers] = useState([]);
   useEffect(() => {
@@ -26,13 +29,12 @@ const ProfileRightbar = () => {
   }, []);
 
   const [users, setUsers] = useState([]);
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
+
   useEffect(() => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/user/all/user/${id}`
+          `http://localhost:5000/api/user/all/user/${idforSuggest}`
         );
         setUsers(res.data);
       } catch (error) {

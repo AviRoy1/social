@@ -4,18 +4,18 @@ import Contentpost from "../ContentPostContainer/Contentpost";
 import Post from "../ProfilePostContainer/Post";
 import Coverimage from "../images/Profile.png";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 const ProfileMainpost = () => {
   const [post, setPost] = useState([]);
-  const userId = "6490456d1f0d9ef7234d8e5d";
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
+  let location = useLocation();
+  const id = location.pathname.split("/")[2];
 
   useEffect(() => {
     const getPost = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/post/get/post/6490456d1f0d9ef7234d8e5d`
+          `http://localhost:5000/api/post/get/post/${id}`
         );
         setPost(res.data);
       } catch (error) {
