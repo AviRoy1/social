@@ -5,34 +5,54 @@ import Notification from "../images/bell.png";
 import Message from "../images/message.png";
 import Profileimage from "../images/Profile.png";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../Redux/useReducer";
 
 const Navbar = () => {
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails?.user;
+  // console.log(user);
+  let id = user?.other?._id;
+  let username = !user.other.username ? "Tester" : user.other.username;
+  const dispatch = useDispatch();
+  const handleLogout = () => {
+    dispatch(logout());
+  };
   return (
     <div className="mainNavbar">
       <div className="LogoContainer">
-        <p style={{ marginLeft: "50px" }}>Social</p>
+        <p>Social</p>
       </div>
       <div>
-        <div className="SearchInputContainer">
-          <img src={`${searchIcon}`} className="SearchIcons" alt="" />
+        <div className="searchInputContainer">
+          <img src={`${searchIcon}`} className="searchIcon" alt="" />
           <input
             type="text"
             className="searchInput"
+            placeholder="search your friends"
             name=""
             id=""
-            placeholder="Search your friends"
           />
         </div>
       </div>
       <div className="IconsContainer">
         <img src={`${Notification}`} className="Icons" alt="" />
         <img src={`${Message}`} className="Icons" alt="" />
-        <Link to={"/profile/8922103818wdw913819"}>
+        <Link to={`/Profile/${id}`}>
           <div style={{ display: "flex", alignItems: "center" }}>
-            <img src={`${Profileimage}`} className="ProfileImage" alt="" />
-            <p style={{ marginLeft: "5px" }}>Avijit</p>
+            <img
+              src={`${user?.other?.profile}`}
+              className="ProfileImage"
+              alt=""
+            />
+            <p style={{ marginLeft: "5px" }}>{username}</p>
           </div>
         </Link>
+        <div
+          style={{ marginRight: "30px", marginLeft: "20px", cursor: "pointer" }}
+          onClick={handleLogout}>
+          <p>Logout</p>
+        </div>
       </div>
     </div>
   );

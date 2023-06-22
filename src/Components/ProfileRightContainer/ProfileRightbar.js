@@ -1,24 +1,21 @@
 import React, { useEffect, useState } from "react";
 import "./profilerightbar.css";
 import ads from "../images/ads.jpg";
-import image from "../images/Profile.png";
-import image1 from "../images/image1.jpg";
-import image2 from "../images/image2.jpg";
-import image3 from "../images/image3.jpg";
-import image4 from "../images/image4.jpg";
-import image5 from "../images/image5.jpg";
-import image6 from "../images/image6.jpg";
-import addFriend from "../images/add-user.png";
 import axios from "axios";
 import Follow from "../Rightsidecontainer/follow";
+import { useSelector } from "react-redux";
 
 const ProfileRightbar = () => {
+  const userDetails = useSelector((state) => state.user);
+  const user = userDetails.user;
+  const id = user.other._id;
+  let username = !user.other.username ? "Tester1" : user.other.username;
   const [Followers, setFollowers] = useState([]);
   useEffect(() => {
     const getFollowing = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/post/followers/6490456d1f0d9ef7234d8e5d`
+          `http://localhost:5000/api/post/followers/${id}`
         );
         setFollowers(res.data);
       } catch (error) {
@@ -35,7 +32,7 @@ const ProfileRightbar = () => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/user/all/user/6490456d1f0d9ef7234d8e5d`
+          `http://localhost:5000/api/user/all/user/${id}`
         );
         setUsers(res.data);
       } catch (error) {

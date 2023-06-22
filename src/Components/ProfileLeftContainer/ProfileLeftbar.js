@@ -8,14 +8,23 @@ import image4 from "../images/image4.jpg";
 import image5 from "../images/image5.jpg";
 import image6 from "../images/image6.jpg";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const ProfileLeftbar = () => {
+  const userDetails = useSelector((state) => state.user);
+  const user = userDetails.user;
+  const id = user.other._id;
+  let username = !user.other.username ? "Tester1" : user.other.username;
+  let followerscount = user.other.followers.length;
+  let followingcount = user.other.following.length;
+  console.log(user.other);
+  console.log(user.other);
   const [Followinguser, setFollowinguser] = useState([]);
   useEffect(() => {
     const getFollowing = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/post/following/6490456d1f0d9ef7234d8e5d`
+          `http://localhost:5000/api/post/following/${id}`
         );
         setFollowinguser(res.data);
       } catch (error) {
@@ -32,7 +41,11 @@ const ProfileLeftbar = () => {
       <div className="NotificationContainer">
         <img src={`${image}`} className="ProfilepageCover" alt="" />
         <div style={{ display: "flex", alignItems: "center", marginTop: -30 }}>
-          <img src={`${image2}`} className="ProfilepageImage" alt="" />
+          <img
+            src={`${user.other.profile}`}
+            className="ProfilepageImage"
+            alt=""
+          />
           <div>
             <h3
               style={{
@@ -41,7 +54,7 @@ const ProfileLeftbar = () => {
                 color: "black",
                 textAlign: "start",
               }}>
-              Avijit
+              {username}
             </h3>
             <p
               style={{
@@ -58,7 +71,7 @@ const ProfileLeftbar = () => {
         </div>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
           <p style={{ color: "black", marginLeft: 20, fontSize: "14px" }}>
-            Profile Views
+            Followings
           </p>
           <p
             style={{
@@ -67,7 +80,7 @@ const ProfileLeftbar = () => {
               fontSize: "12px",
               marginTop: 17,
             }}>
-            43
+            {followingcount}
           </p>
         </div>
         {/* <hr style={{ marginTop: -10 }} /> */}
@@ -87,7 +100,7 @@ const ProfileLeftbar = () => {
               fontSize: "12px",
               marginTop: 17,
             }}>
-            43
+            {followerscount}
           </p>
         </div>
         {/* <hr style={{ marginTop: -10 }} /> */}

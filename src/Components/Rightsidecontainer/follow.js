@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import addFriend from "../images/add-user.png";
 import userToFollow from "../images/afterFollowImg.png";
+import { useSelector } from "react-redux";
 
 const Follow = ({ userdetail }) => {
+  const userDetails = useSelector((state) => state.user);
+  const user = userDetails.user;
+  const id = user.other._id;
+  let username = !user.other.username ? "Tester1" : user.other.username;
   const [follow, setFollow] = useState(addFriend);
   const accessToken =
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
@@ -11,7 +16,7 @@ const Follow = ({ userdetail }) => {
     await fetch(`http://localhost:5000/api/user/following/${userdetail._id}`, {
       method: "PUT",
       headers: { "Content-type": "application/JSON", token: accessToken },
-      body: JSON.stringify({ user: "6490456d1f0d9ef7234d8e5d" }),
+      body: JSON.stringify({ user: `${id}` }),
     });
     setFollow(userToFollow);
   };

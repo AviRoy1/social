@@ -15,9 +15,11 @@ const userSchema = new mongoose.Schema({
   },
   followers: {
     type: Array,
+    default: [],
   },
   following: {
     type: Array,
+    default: [],
   },
   phonenumber: {
     type: Number,

@@ -92,12 +92,14 @@ router.post(
 //Following
 router.put("/following/:id", verifytoken, async (req, res) => {
   if (req.params.id !== req.body.user) {
-    const user = await User.findById(req.params.id);
     const otheruser = await User.findById(req.body.user);
+    const user = await User.findById(req.params.id);
+    console.log(user.followers);
 
     if (!user.followers.includes(req.body.user)) {
       await user.updateOne({ $push: { followers: req.body.user } });
       await otheruser.updateOne({ $push: { following: req.params.id } });
+
       return res.status(200).json("User has followed");
     } else {
       await user.updateOne({ $pull: { followers: req.body.user } });
