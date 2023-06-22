@@ -1,8 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "./login.css";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../Components/Redux/apiCall";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handlerClick = (e) => {
+    e.preventDefault();
+    login(dispatch, { email, password });
+  };
+
   return (
     <div className="mainContainerforSignup">
       <div className="submainContainer">
@@ -16,9 +28,21 @@ const Login = () => {
         </div>
         <div style={{ flex: 3 }}>
           <p className="createaccountText">Login Account</p>
-          <input type="email" placeholder="Email" className="inputText" />
-          <input type="password" placeholder="*****" className="inputText" />
-          <button className="btnForSignup">Login</button>
+          <input
+            type="email"
+            placeholder="Email"
+            className="inputText"
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <input
+            type="password"
+            placeholder="*****"
+            className="inputText"
+            onChange={(e) => setPassword(e.target.value)}
+          />
+          <button className="btnForSignup" onClick={handlerClick}>
+            Login
+          </button>
           <Link to="/">
             <p style={{ marginLeft: "30%", textAlign: "start" }}>
               forgot password
