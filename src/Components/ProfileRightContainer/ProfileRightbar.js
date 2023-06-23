@@ -27,7 +27,7 @@ const ProfileRightbar = () => {
     };
     getFollowing();
   }, []);
-
+  // console.log(Followers);
   const [users, setUsers] = useState([]);
 
   useEffect(() => {
@@ -59,9 +59,13 @@ const ProfileRightbar = () => {
                   marginLeft: 10,
                   cursor: "pointer",
                 }}>
-                <img src={`${item.profile}`} className="Friendsimage" alt="" />
+                <img
+                  src={`${item.others.profile}`}
+                  className="Friendsimage"
+                  alt=""
+                />
                 <p style={{ textAlign: "start", marginLeft: "10px" }}>
-                  {item.username}
+                  {item.others.username}
                 </p>
               </div>
             </div>

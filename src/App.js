@@ -12,7 +12,11 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Home />}></Route>
+          <Route
+            path="/"
+            element={
+              user === null ? <Navigate to={"/login"} /> : <Home />
+            }></Route>
           <Route
             path="/profile/:id"
             element={user !== null ? <Profile /> : <Login />}></Route>

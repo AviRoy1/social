@@ -11,8 +11,12 @@ import image6 from "../images/image6.jpg";
 import addFriend from "../images/add-user.png";
 import axios from "axios";
 import Follow from "./follow";
+import { useSelector } from "react-redux";
 
 const Rightbar = () => {
+  const userDetails = useSelector((state) => state.user);
+  const user = userDetails.user;
+  const id = user.other._id;
   const [users, setUsers] = useState([]);
   // const accessToken =
   //   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
@@ -20,7 +24,7 @@ const Rightbar = () => {
     const getUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/user/all/user/6490456d1f0d9ef7234d8e5d`
+          `http://localhost:5000/api/user/all/user/${id}`
         );
         setUsers(res.data);
       } catch (error) {

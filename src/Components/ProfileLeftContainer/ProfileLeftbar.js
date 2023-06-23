@@ -12,9 +12,15 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 const ProfileLeftbar = () => {
+  const [users, setUser] = useState([]);
+  const userDetails = useSelector((state) => state.user);
+  const user = userDetails.user;
+
   let location = useLocation();
   const id = location.pathname.split("/")[2];
-  const [users, setUser] = useState([]);
+  const [Follow, UnFollow] = useState([
+    user.other.following.includes(id) ? "Unfollow" : "Follow",
+  ]);
   useEffect(() => {
     const getUser = async () => {
       try {
@@ -29,8 +35,6 @@ const ProfileLeftbar = () => {
     getUser();
   }, []);
 
-  const userDetails = useSelector((state) => state.user);
-  const user = userDetails.user;
   let username = !users.username ? "Tester1" : users.username;
   let followerscount = users?.followers?.length;
   let followingcount = users?.following?.length;
@@ -49,6 +53,18 @@ const ProfileLeftbar = () => {
     };
     getFollowing();
   }, []);
+
+  const handleFollow = async () => {
+    await fetch(`http://localhost:5000/api/user/following/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/JSON",
+        token: user.other.accessToken,
+      },
+      body: JSON.stringify({ user: `${user.id}` }),
+    });
+    UnFollow("Unfollow");
+  };
 
   // console.log(Followinguser);
 
@@ -140,7 +156,7 @@ const ProfileLeftbar = () => {
           </p>
         </div>
         {user.other._id !== id ? (
-          <div>
+          <div onClick={handleFollow}>
             <button
               style={{
                 width: "100%",
@@ -150,7 +166,7 @@ const ProfileLeftbar = () => {
                 backgroundColor: "green",
                 color: "black",
               }}>
-              Follow
+              {Follow}
             </button>
           </div>
         ) : (

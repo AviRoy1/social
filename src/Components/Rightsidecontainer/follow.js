@@ -15,7 +15,10 @@ const Follow = ({ userdetail }) => {
   const handlefollow = async (e) => {
     await fetch(`http://localhost:5000/api/user/following/${userdetail._id}`, {
       method: "PUT",
-      headers: { "Content-type": "application/JSON", token: accessToken },
+      headers: {
+        "Content-type": "application/JSON",
+        token: user.other.accessToken,
+      },
       body: JSON.stringify({ user: `${id}` }),
     });
     setFollow(userToFollow);

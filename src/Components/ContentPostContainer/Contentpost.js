@@ -4,13 +4,19 @@ import profileImage from "../images/Profile.png";
 import imageIcon from "../images/gallery.png";
 import emojiIcons from "../images/cat-face.png";
 import voiceIcon from "../images/Profile.png";
+import { useSelector } from "react-redux";
 
 const Contentpost = () => {
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails?.user;
+  // console.log(user);
+  let id = user?.other?._id;
+
   return (
     <div>
       <div className="ContentUploadContainer">
         <div style={{ display: "flex", alignItems: "center", padding: 10 }}>
-          <img src={`${profileImage}`} className="profileImage" alt="" />
+          <img src={`${user.other.profile}`} className="profileImage" alt="" />
           <input
             type="text"
             className="contentWritingPart"
