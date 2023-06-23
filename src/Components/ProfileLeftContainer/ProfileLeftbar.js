@@ -12,32 +12,33 @@ import { useSelector } from "react-redux";
 import { Link, useLocation } from "react-router-dom";
 
 const ProfileLeftbar = () => {
-  const [users, setUser] = useState([]);
-  const userDetails = useSelector((state) => state.user);
-  const user = userDetails.user;
-
   let location = useLocation();
-  const id = location.pathname.split("/")[2];
-  const [Follow, UnFollow] = useState([
+  let id = location.pathname.split("/")[2];
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails.user;
+  const [Follow, setUnFollow] = useState([
     user.other.following.includes(id) ? "Unfollow" : "Follow",
   ]);
+  const accessToken = user.accessToken;
+  console.log(accessToken);
+  let username = user?.other?.username;
+
+  const [users, setuser] = useState([]);
   useEffect(() => {
-    const getUser = async () => {
+    const getuser = async () => {
       try {
         const res = await axios.get(
           `http://localhost:5000/api/user/post/user/details/${id}`
         );
-        setUser(res.data);
+        setuser(res.data);
       } catch (error) {
         console.log("Some error occured");
       }
     };
-    getUser();
+    getuser();
   }, []);
-
-  let username = !users.username ? "Tester1" : users.username;
-  let followerscount = users?.followers?.length;
-  let followingcount = users?.following?.length;
+  let followersCounter = users?.followers?.length;
+  let followingCounter = users?.following?.length;
 
   const [Followinguser, setFollowinguser] = useState([]);
   useEffect(() => {
@@ -48,52 +49,58 @@ const ProfileLeftbar = () => {
         );
         setFollowinguser(res.data);
       } catch (error) {
-        console.log("error occurs");
+        console.log("Error");
       }
     };
     getFollowing();
   }, []);
 
   const handleFollow = async () => {
-    await fetch(`http://localhost:5000/api/user/following/${id}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/JSON",
-        token: user.other.accessToken,
-      },
-      body: JSON.stringify({ user: `${user.id}` }),
-    });
-    UnFollow("Unfollow");
+    if (Follow === "Follow") {
+      await fetch(`http://localhost:5000/api/user/following/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/JSON", token: accessToken },
+        body: JSON.stringify({ user: `${user.other._id}` }),
+      });
+      setUnFollow("UnFollow");
+    } else {
+      await fetch(`http://localhost:5000/api/user/following/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/JSON", token: accessToken },
+        body: JSON.stringify({ user: `${user.other._id}` }),
+      });
+      setUnFollow("Follow");
+    }
   };
 
   // console.log(Followinguser);
 
   return (
     <div className="ProfileLeftbar">
-      <div className="NotificationContainer">
+      <div className="NotificationsContainer">
         <img src={`${image}`} className="ProfilepageCover" alt="" />
         <div style={{ display: "flex", alignItems: "center", marginTop: -30 }}>
-          <img src={`${users.profile}`} className="ProfilepageImage" alt="" />
+          <img src={`${users.profile}`} className="Profilepageimage" alt="" />
           <div>
-            <h3
+            <p
               style={{
-                marginLeft: 10,
-                marginTop: 24,
+                marginLeft: 6,
+                marginTop: 20,
                 color: "black",
                 textAlign: "start",
               }}>
-              {username}
-            </h3>
+              {users.username}
+            </p>
             <p
               style={{
-                marginLeft: 10,
-                marginTop: 24,
+                marginLeft: 6,
+                marginTop: 20,
                 color: "black",
                 textAlign: "start",
                 marginTop: -16,
-                fontSize: 13,
+                fontSize: 11,
               }}>
-              Web Developer
+              Software Developer
             </p>
           </div>
         </div>
@@ -108,10 +115,10 @@ const ProfileLeftbar = () => {
               fontSize: "12px",
               marginTop: 17,
             }}>
-            {followingcount}
+            {followingCounter}
           </p>
         </div>
-        {/* <hr style={{ marginTop: -10 }} /> */}
+
         <div
           style={{
             display: "flex",
@@ -119,7 +126,7 @@ const ProfileLeftbar = () => {
             marginTop: -20,
           }}>
           <p style={{ color: "black", marginLeft: 20, fontSize: "14px" }}>
-            Flollowers
+            Followers
           </p>
           <p
             style={{
@@ -128,31 +135,31 @@ const ProfileLeftbar = () => {
               fontSize: "12px",
               marginTop: 17,
             }}>
-            {followerscount}
+            {followersCounter}
           </p>
         </div>
-        {/* <hr style={{ marginTop: -10 }} /> */}
-        <div style={{ marginTop: -10 }}>
-          <h2
+        <div style={{ marginTop: -20 }}>
+          <h5
             style={{
               color: "black",
               marginLeft: 10,
-              fontSize: "17px",
+              fontSize: "14px",
+              marginRight: 30,
+              marginTop: 30,
               textAlign: "start",
             }}>
-            User Bio
-          </h2>
+            User bio
+          </h5>
           <p
             style={{
               color: "black",
-              marginRight: 20,
-              fontSize: "14px",
-              marginTop: -10,
-              marginLeft: 10,
-              marginRight: 10,
+              fontSize: "12px",
+              marginTop: -20,
               textAlign: "start",
+              marginLeft: "10px",
             }}>
-            This my bio.....xxsdwdwd....dwdwdw......he kklsol wdwkdn lksms
+            I would rather be despised of who I am, rather than loved by who I
+            am not.
           </p>
         </div>
         {user.other._id !== id ? (
@@ -164,45 +171,43 @@ const ProfileLeftbar = () => {
                 paddingBottom: 7,
                 border: "none",
                 backgroundColor: "green",
-                color: "black",
+                color: "white",
               }}>
               {Follow}
             </button>
           </div>
         ) : (
-          <button
-            style={{
-              width: "100%",
-              paddingTop: 7,
-              paddingBottom: 7,
-              border: "none",
-              backgroundColor: "green",
-              color: "black",
-            }}>
-            Edit Bio
-          </button>
+          <div>
+            <button
+              style={{
+                width: "100%",
+                paddingTop: 7,
+                paddingBottom: 7,
+                border: "none",
+                backgroundColor: "green",
+                color: "white",
+              }}>
+              Edit Bio
+            </button>
+          </div>
         )}
       </div>
 
-      <div className="NotificationContainer">
-        <h3 style={{ marginLeft: 90 }}>Followings</h3>
+      <div className="NotificationsContainer">
+        <h3>Followings</h3>
         <div style={{ display: "flex", justifyContent: "space-between" }}>
-          <p style={{ marginLeft: 10 }}>Following</p>
+          <p style={{ marginLeft: 10 }}>Friends</p>
           <p style={{ marginRight: 10, color: "#aaa" }}>See all</p>
         </div>
-        <div>
-          <div style={{ display: "flex", flexWrap: "wrap", marginLeft: 5 }}>
-            {Followinguser.map((item) => (
-              <Link to={`/Profile/${item._id}`}>
-                <div
-                  style={{ marginLeft: 4, cursor: "pointer" }}
-                  key={item._id}>
-                  <img src={`${item.profile}`} className="friendImage" alt="" />
-                  <p style={{ marginTop: -2 }}>{item.username}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
+        <div style={{ display: "flex", flexWrap: "wrap", marginLeft: 5 }}>
+          {Followinguser.map((item) => (
+            <Link to={`/Profile/${item._id}`}>
+              <div style={{ marginLeft: 4, cursor: "pointer" }} key={item._id}>
+                <img src={`${item.profile}`} className="friendimage" alt="" />
+                <p style={{ marginTop: -2 }}>{item.username}</p>
+              </div>
+            </Link>
+          ))}
         </div>
       </div>
     </div>

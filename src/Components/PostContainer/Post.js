@@ -7,17 +7,18 @@ import ShareIcon from "../images/share.png";
 import MoreOptions from "../images/more.png";
 import anotherlikeicon from "../images/setLike.png";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Post = ({ post }) => {
-  const userId = "6490456d1f0d9ef7234d8e5d";
-  const accessToken =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0OTA0NTZkMWYwZDllZjcyMzRkOGU1ZCIsImlhdCI6MTY4NzMzMDE4NH0.u46Ppue_VyVXotmAs5OtQMwQcUhhpTrkNYNVtbi4pAc";
-
+  const userDetails = useSelector((state) => state.user);
+  const users = userDetails?.user;
+  const userId = users.other._id;
+  const accessToken = users.accessToken;
   const [like, setLike] = useState([
     post.like.includes(userId) ? anotherlikeicon : LikeIcon,
   ]);
   const [count, setCount] = useState(post.like.length);
-  const [comment, setComment] = useState([]);
+  const [Comments, setComments] = useState(post.comments);
   const [commentwriting, setCommentwriting] = useState("");
   const [show, setShow] = useState(false);
 
@@ -36,7 +37,7 @@ const Post = ({ post }) => {
     getUser();
   }, []);
 
-  // console.log(user);
+  console.log(Comments);
 
   const handleLike = async () => {
     if (like == LikeIcon) {
@@ -55,15 +56,22 @@ const Post = ({ post }) => {
       setCount(count - 1);
     }
   };
-  const addComment = () => {
-    const comm = {
-      id: "6ydwi77919lklkddds99",
-      username: "avijit",
-      title: `${commentwriting}`,
+
+  const addComment = async () => {
+    const comment = {
+      postid: `${post._id}`,
+      username: `${users.other.username}`,
+      comment: `${commentwriting}`,
+      profile: `${users.other?.profile}`,
     };
-    setComment(comment.concat(comm));
-    // setCommentwriting("");
+    await fetch(`http://localhost:5000/api/post/comment/post`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/Json", token: accessToken },
+      body: JSON.stringify(comment),
+    });
+    setComments(Comments.concat(comment));
   };
+
   const handleComment = () => {
     addComment();
   };
@@ -138,7 +146,7 @@ const Post = ({ post }) => {
                 }}>
                 <img src={`${Commenticon}`} className="IconsforPost" alt="" />
                 <p style={{ marginLeft: "6px" }} onClick={handleshow}>
-                  {post.comments.length} Comments
+                  {Comments.length} Comments
                 </p>
               </div>
             </div>
@@ -156,7 +164,11 @@ const Post = ({ post }) => {
           {show === true ? (
             <div style={{ padding: "10px" }}>
               <div style={{ display: "flex", alignItems: "center" }}>
-                <img src={`${ProfileImage}`} className="PostImage" alt="" />
+                <img
+                  src={`${users?.other?.profile}`}
+                  className="PostImage"
+                  alt=""
+                />
                 <input
                   type="text"
                   className="commentinput"
@@ -167,10 +179,10 @@ const Post = ({ post }) => {
                   Post
                 </button>
               </div>
-              {comment.map((item) => (
+              {Comments.map((item) => (
                 <div style={{ alignItems: "center" }}>
                   <div style={{ display: "flex", alignItems: "center" }}>
-                    <img src={`${ProfileImage}`} className="PostImage" alt="" />
+                    <img src={`${item.profile}`} className="PostImage" alt="" />
                     <p
                       style={{ marginLeft: "6px", fontSize: 17, marginTop: 6 }}>
                       {item.username}
@@ -183,7 +195,7 @@ const Post = ({ post }) => {
                       textAlign: "start",
                       marginTop: -16,
                     }}>
-                    {item.title}
+                    {item.comment}
                   </p>
                   <p
                     style={{

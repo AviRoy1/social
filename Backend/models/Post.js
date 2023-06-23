@@ -38,6 +38,9 @@ const postSchema = new mongoose.Schema({
         type: String,
         require: true,
       },
+      profile: {
+        type: String,
+      },
     },
   ],
 });

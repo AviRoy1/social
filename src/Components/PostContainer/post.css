@@ -21,11 +21,11 @@
     margin-left: 35px;
     border-radius: 10px;
 }
-.IconsforPost {
+.iconsforPost {
     width:20px;
     margin-left: 14px;
 }
-.MoreIcons{
+.moreicons{
     width: 30px;
     margin-left: 300px;
 }
@@ -35,7 +35,7 @@
     border: none;
     /* height: 6vh; */
 }
-.addCommentBtn{
+.addCommentbtn{
     padding: 9px;
     border: none;
     background-color: black;

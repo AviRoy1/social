@@ -91,10 +91,14 @@ router.put("/:id/dislike", verifytoken, async (req, res) => {
 router.put("/comment/post", verifytoken, async (req, res) => {
   try {
     const { comment, postid } = req.body;
+    const user = await User.findById(req.user.id);
+    let pic = user.profile;
+    // console.log(req.user);
     const comments = {
       user: req.user.id,
       username: req.user.username,
-      comment,
+      profile: pic,
+      comment: comment,
     };
     let post = await Post.findById(postid);
     post.comments.push(comments);
