@@ -32,9 +32,9 @@ const Mainpost = () => {
   return (
     <div className="mainpostContainer">
       <Contentpost />
-      {post.map((item) =>
-        item.map((postdetails) => <Post post={postdetails} />)
-      )}
+      {post.map((item) => (
+        <Post post={item} />
+      ))}
     </div>
   );
 };

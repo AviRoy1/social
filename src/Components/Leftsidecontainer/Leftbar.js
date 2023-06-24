@@ -205,13 +205,11 @@ const Leftbar = () => {
           <p style={{ color: "#aaa", marginLeft: "40px" }}>See all</p>
         </div>
         <div>
-          {post.map((item) =>
-            item.map((image) => (
-              <img src={`${image.image}`} className="exploreimage" alt="" />
-            ))
-          )}
+          {post.map((item) => (
+            <img src={`${item.image}`} className="exploreimage" alt="" />
+          ))}
 
-          <img src={`${image1}`} className="exploreimage" alt="" />
+          {/* <img src={`${image1}`} className="exploreimage" alt="" />
           <img src={`${image2}`} className="exploreimage" alt="" />
           <img src={`${image3}`} className="exploreimage" alt="" />
           <img src={`${image4}`} className="exploreimage" alt="" />
@@ -219,7 +217,7 @@ const Leftbar = () => {
           <img src={`${image6}`} className="exploreimage" alt="" />
           <img src={`${image}`} className="exploreimage" alt="" />
           <img src={`${image}`} className="exploreimage" alt="" />
-          <img src={`${image}`} className="exploreimage" alt="" />
+          <img src={`${image}`} className="exploreimage" alt="" /> */}
         </div>
       </div>
     </div>

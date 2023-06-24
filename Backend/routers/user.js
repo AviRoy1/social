@@ -120,7 +120,8 @@ router.get("/flw/:id", verifytoken, async (req, res) => {
         return Post.find({ user: item });
       })
     );
-    res.status(200).json(followersPost);
+    const userPost = await Post.find({ user: user._id });
+    res.status(200).json(userPost.concat(...followersPost));
   } catch (error) {
     // console.log(error);
     return res.status(500).json("Internal server error");
