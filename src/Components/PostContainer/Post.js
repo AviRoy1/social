@@ -119,7 +119,17 @@ const Post = ({ post }) => {
             }}>
             {post.title}
           </p>
-          <img src={`${post.image}`} className="PostImages" alt="" />
+
+          {post.image !== "" ? (
+            <img src={`${post.image}`} className="PostImages" alt="" />
+          ) : post.video !== "" ? (
+            <video className="PostImages" width="500" height="500" controls>
+              {" "}
+              <source src={`${post.video}`} type="video/mp4" />{" "}
+            </video>
+          ) : (
+            ""
+          )}
 
           <div style={{ display: "flex" }}>
             <div style={{ display: "flex", marginLeft: "10px" }}>

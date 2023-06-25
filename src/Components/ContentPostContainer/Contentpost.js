@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import "./contentpost.css";
 import profileImage from "../images/Profile.png";
 import imageIcon from "../images/gallery.png";
-import emojiIcons from "../images/cat-face.png";
-import voiceIcon from "../images/video.png";
+import emojiIcon from "../images/cat-face.png";
+import VideoIcon from "../images/video.png";
 import { useSelector } from "react-redux";
 import app from "../../firebase";
 import {
@@ -16,12 +16,15 @@ import {
 const Contentpost = () => {
   const userDetails = useSelector((state) => state.user);
   let user = userDetails?.user;
-  // console.log(user);
+  console.log(user);
   let id = user?.other?._id;
-  const accessToken = user.accessToken;
   const [file, setFile] = useState(null);
   const [file2, setFile2] = useState(null);
-  const [title, setTitle] = useState("");
+  const [title, setTile] = useState("");
+  const [imagePre, setImagePre] = useState(null);
+  const [VideoPre, setVideoPre] = useState(null);
+  const accessToken = user.accessToken;
+  console.log(file?.name);
 
   const handlePost = (e) => {
     e.preventDefault();
@@ -29,6 +32,7 @@ const Contentpost = () => {
       const fileName = new Date().getTime() + file?.name;
       const storage = getStorage(app);
       const StorageRef = ref(storage, fileName);
+
       const uploadTask = uploadBytesResumable(StorageRef, file);
       uploadTask.on(
         "state_changed",
@@ -60,7 +64,14 @@ const Contentpost = () => {
                 "Content-Type": "application/JSON",
                 token: accessToken,
               },
-              body: JSON.stringify({ title: title, image: downloadURL }),
+              body: JSON.stringify({
+                title: title,
+                image: downloadURL,
+                video: "",
+              }),
+            }).then((data) => {
+              alert("Your Post was upload successfully");
+              window.location.reload(true);
             });
           });
         }
@@ -69,6 +80,7 @@ const Contentpost = () => {
       const fileName = new Date().getTime() + file2?.name;
       const storage = getStorage(app);
       const StorageRef = ref(storage, fileName);
+
       const uploadTask = uploadBytesResumable(StorageRef, file2);
       uploadTask.on(
         "state_changed",
@@ -100,7 +112,14 @@ const Contentpost = () => {
                 "Content-Type": "application/JSON",
                 token: accessToken,
               },
-              body: JSON.stringify({ title: title, video: downloadURL }),
+              body: JSON.stringify({
+                title: title,
+                video: downloadURL,
+                image: "",
+              }),
+            }).then((data) => {
+              alert("Your Post was upload successfully");
+              window.location.reload(true);
             });
           });
         }
@@ -108,54 +127,84 @@ const Contentpost = () => {
     } else {
       fetch(`http://localhost:5000/api/post/user/post`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/JSON",
-          token: accessToken,
-        },
-        body: JSON.stringify({ title: title }),
+        headers: { "Content-Type": "application/JSON", token: accessToken },
+        body: JSON.stringify({ title: title, video: "", image: "" }),
+      }).then((data) => {
+        alert("Your Post was upload successfully");
+        window.location.reload(true);
       });
     }
   };
-
   return (
     <div>
       <div className="ContentUploadContainer">
         <div style={{ display: "flex", alignItems: "center", padding: 10 }}>
-          <img src={`${user.other.profile}`} className="profileImage" alt="" />
+          <img
+            src={`${user?.other?.profile}`}
+            className="profileimage"
+            alt=""
+          />
           <input
             type="text"
-            className="contentWritingPart"
+            className="contentWritingpart"
             placeholder="Write your real thought....."
-            onChange={(e) => setTitle(e.target.value)}
+            onChange={(e) => setTile(e.target.value)}
           />
         </div>
-        <div style={{ display: "flex", marginLeft: "10px" }}>
-          <div>
-            <label htmlFor="file">
-              <img src={`${imageIcon}`} className="icons" alt="" />
-              <input
-                type="file"
-                name="file"
-                id="file"
-                style={{ display: "none" }}
-                onChange={(e) => setFile(e.target.files[0])}
-              />
-            </label>
-            <img src={`${emojiIcons}`} className="icons" alt="" />
-            <label htmlFor="file2">
-              <img src={`${voiceIcon}`} className="icons" alt="" />
-
-              <input
-                type="file"
-                name="file2"
-                id="file2"
-                style={{ display: "none" }}
-                onChange={(e) => setFile2(e.target.files[0])}
-              />
-            </label>
+        <div style={{ marginLeft: "10px" }}>
+          {imagePre !== null ? (
+            <img
+              src={imagePre}
+              style={{
+                width: "410px",
+                height: "250px",
+                objectFit: "cover",
+                borderRadius: "10px",
+              }}
+              alt=""
+            />
+          ) : VideoPre !== null ? (
+            <video className="PostImages" width="500" height="500" controls>
+              <source src={VideoPre} type="video/mp4" />
+            </video>
+          ) : (
+            ""
+          )}
+          <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div>
+              <label htmlFor="file">
+                <img src={`${imageIcon}`} className="icons" alt="" />
+                <input
+                  type="file"
+                  name="file"
+                  id="file"
+                  style={{ display: "none" }}
+                  onChange={(e) => [
+                    setFile(e.target.files[0]),
+                    setImagePre(URL.createObjectURL(e.target.files[0])),
+                  ]}
+                />
+              </label>
+              <img src={`${emojiIcon}`} className="icons" alt="" />
+              <label htmlFor="file2">
+                <img src={`${VideoIcon}`} className="icons" alt="" />
+                <input
+                  type="file"
+                  name="file2"
+                  id="file2"
+                  style={{ display: "none" }}
+                  onChange={(e) => [
+                    setFile2(e.target.files[0]),
+                    setVideoPre(URL.createObjectURL(e.target.files[0])),
+                  ]}
+                />
+              </label>
+            </div>
             <button
               style={{
-                marginLeft: "350px",
+                height: "30px",
+                marginRight: "12px",
+                marginTop: "40px",
                 paddingLeft: "20px",
                 paddingRight: "20px",
                 paddingTop: 6,
@@ -163,7 +212,7 @@ const Contentpost = () => {
                 border: "none",
                 backgroundColor: "black",
                 color: "white",
-                borderRadius: "6px",
+                borderRadius: "5px",
                 cursor: "pointer",
               }}
               onClick={handlePost}>
