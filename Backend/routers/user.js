@@ -6,7 +6,9 @@ const jwt = require("jsonwebtoken");
 const { verifytoken } = require("./verifyToken");
 const JWTSEC = "@ee!$^$#@@#fekedek 99##";
 const Post = require("../models/Post");
-
+const { generateOTP } = require("./Extra/mail");
+const VerificationToken = require("../models/VerificationToken");
+const nodemailer = require("nodemailer");
 const router = express.Router();
 
 router.post(
@@ -43,8 +45,32 @@ router.post(
         JWTSEC
       );
 
+      const OTP = generateOTP();
+      const verificationToken = await VerificationToken.create({
+        user: user._id,
+        token: OTP,
+      });
+      await verificationToken.save();
       await user.save();
-      return res.status(200).json({ user, accessToken });
+      const transport = nodemailer.createTransport({
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+          user: process.env.USER,
+          pass: process.env.PASS,
+        },
+      });
+      transport.sendMail({
+        from: "social@gmail.com",
+        to: user.email,
+        subject: "Verify your email using OTP",
+        html: `<h1>Your OTP code ${OTP}</h1>`,
+      });
+      return res.status(200).json({
+        Status: "Pending",
+        msg: "Please check your email",
+        user: user._id,
+      });
     } catch (error) {
       return res.status(400).json("Internal Error Occured");
     }
