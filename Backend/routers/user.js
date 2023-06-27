@@ -10,6 +10,8 @@ const { generateOTP } = require("./Extra/mail");
 const VerificationToken = require("../models/VerificationToken");
 const nodemailer = require("nodemailer");
 const router = express.Router();
+const crypto = require("crypto");
+const ResetToken = require("../models/ResetToken");
 
 router.post(
   "/create/user",
@@ -77,6 +79,53 @@ router.post(
   }
 );
 
+// verify email
+router.post("/verify/email", async (req, res) => {
+  const { user, OTP } = req.body;
+  const mainuser = await User.findById(user);
+  if (!mainuser) return res.status(400).json("User not found");
+  if (mainuser.verified === true) {
+    return res.status(400).json("user already verified");
+  }
+  const token = await VerificationToken.findOne({ user: mainuser._id });
+  if (!token) {
+    return res.status(400).json("Sorry token not found");
+  }
+  const isMatch = await bcrypt.compareSync(OTP, token.token);
+  if (!isMatch) {
+    return res.status(400).json("Token is not found");
+  }
+
+  mainuser.verified = true;
+  await VerificationToken.findByIdAndDelete(token._id);
+  await mainuser.save();
+  const accessToken = jwt.sign(
+    {
+      id: mainuser._id,
+      username: mainuser.username,
+    },
+    JWTSEC
+  );
+
+  const { password, ...others } = mainuser._doc;
+
+  const transport = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: process.env.USER,
+      pass: process.env.PASS,
+    },
+  });
+  transport.sendMail({
+    from: "social@gmail.com",
+    to: mainuser.email,
+    subject: "Successfully verify your email.",
+    html: `Now you can login in social app`,
+  });
+  return res.status(200).json({ others, accessToken });
+});
+
 // Login
 router.post(
   "/login",
@@ -114,6 +163,84 @@ router.post(
     }
   }
 );
+
+//  Forget password
+router.post("/forgot/password", async (req, res) => {
+  const { email } = req.body;
+  const user = await User.findOne({ email: email });
+  if (!user) return res.status(400).json("User Not Found");
+  const token = await ResetToken.findOne({ user: user._id });
+  if (token) {
+    return res
+      .status(400)
+      .json("After one hours you can request for another token");
+  }
+  const randomtxt = crypto.randomBytes(20).toString("hex");
+  const resetToken = new ResetToken({
+    user: user._id,
+    token: randomtxt,
+  });
+  await resetToken.save();
+
+  const transport = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: process.env.USER,
+      pass: process.env.PASS,
+    },
+  });
+  transport.sendMail({
+    from: "social@gmail.com",
+    to: user.email,
+    subject: "Reset Token",
+    html: `http://localhost:5000/reset/password?token=${randomtxt}&_id=${user._id}`,
+  });
+
+  return res.status(200).json("Check you email to reset password");
+});
+
+//  reset password
+router.put("/reset/password", async (req, res) => {
+  const { token, _id } = req.query;
+  if (!token || _id) {
+    return res.status(400).json("Invalid Request");
+  }
+  const user = await User.findOne({ _id: _id });
+  if (!user) {
+    return res.status(400).json("User not found");
+  }
+  const resetToken = await ResetToken.findOne({ user: user._id });
+  if (!resetToken) {
+    return res.status(400).json("Reset token is not found");
+  }
+  const isMatch = await bcrypt.compareSync(token, resetToken.token);
+  if (!isMatch) {
+    return res.status(400).json("Token is not valid");
+  }
+  const { password } = req.password;
+  const salt = await bcrypt.getSalt(10);
+  const secpass = await bcrypt.hash(password, salt);
+  user.password = secpass;
+  await user.save();
+
+  const transport = nodemailer.createTransport({
+    host: "sandbox.smtp.mailtrap.io",
+    port: 2525,
+    auth: {
+      user: process.env.USER,
+      pass: process.env.PASS,
+    },
+  });
+  transport.sendMail({
+    from: "social@gmail.com",
+    to: user.email,
+    subject: "Your password reset successfully",
+    html: `Now you can login with new password`,
+  });
+
+  return res.status(200).json("Email hass been send");
+});
 
 //Following
 router.put("/following/:id", verifytoken, async (req, res) => {
