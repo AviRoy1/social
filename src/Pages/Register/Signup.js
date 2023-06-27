@@ -21,6 +21,7 @@ const Signup = () => {
   const [password, setpassword] = useState("");
   const [file, setfile] = useState(null);
   const userDetails = user.user;
+  console.log(user.user.Status);
   // const navigator = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();

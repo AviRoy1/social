@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Signup from "./Pages/Register/Signup";
 import Login from "./Pages/LogIn/Login";
 import { useSelector } from "react-redux";
+import VerifyEmail from "./Pages/VerificationEmail/VerifyEmail";
 
 function App() {
   const userDetails = useSelector((state) => state.user);
@@ -23,11 +24,16 @@ function App() {
           <Route
             path="/signup"
             element={
-              user !== null ? <Navigate to={"/"} /> : <Signup />
+              // user !== null ? <Navigate to={"/"} /> : <Signup />
+              <Signup />
             }></Route>
           <Route
             path="/login"
-            element={user !== null ? <Navigate to={"/"} /> : <Login />}></Route>
+            element={
+              // user !== null ? <Navigate to={"/"} /> : <Login />
+              <Login />
+            }></Route>
+          <Route path="/verify/email" element={<VerifyEmail />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

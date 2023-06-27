@@ -11,7 +11,7 @@ export const login = async (dispatch, user) => {
   }
 };
 
-export const VerifyEmail = async (dispatch, user) => {
+export const verifyemail = async (dispatch, user) => {
   dispatch(loginStart());
   try {
     const res = await axios.post(
