@@ -1,4 +1,4 @@
-.mainContainerforSignup {
+.mainContainerForsignup {
     background-color: #f0f2f5;
     height: 100vh
 }
@@ -12,12 +12,12 @@
     text-align: start;
     margin-top: 0px;
 }
-.introText {
+.introtext {
     font-size: 20px;
     text-align: start;
     margin-top: -40px;
 }
-.createaccountText {
+.createaccountTxt {
     font-size: 20px;
     margin-top: 10px;
     text-align: start;
@@ -32,7 +32,7 @@
     border:none;
     border-radius: 10px;
 }
-.btnForSignup {
+.btnforsignup {
     margin-left: 30%;
     margin-top: 10px;
     border-radius: 10px;

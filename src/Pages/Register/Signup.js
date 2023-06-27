@@ -12,16 +12,16 @@ import {
 } from "firebase/storage";
 
 const Signup = () => {
-  const [email, setEmail] = useState("");
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [phoneNumber, setPhonenumber] = useState("");
-  const [file, setFile] = useState(null);
-
   const dispatch = useDispatch();
+  const { isFetching, error } = useSelector((state) => state.user);
   const user = useSelector((state) => state.user);
-  console.log(user);
-
+  const [email, setEmail] = useState("");
+  const [phonenumber, setphonenumber] = useState("");
+  const [username, setusername] = useState("");
+  const [password, setpassword] = useState("");
+  const [file, setfile] = useState(null);
+  const userDetails = user.user;
+  // const navigator = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file?.name;
@@ -56,66 +56,73 @@ const Signup = () => {
           signup(dispatch, {
             email,
             password,
-            phoneNumber,
             username,
+            phonenumber,
             profile: downloadURL,
           });
-
-          window.location.reload(true);
         });
       }
     );
   };
+  // console.log(userDetails?.Status)
+  //   if(userDetails?.Status==='Pending'){
+  //     navigator("/verify/email");
+  //   }
+  console.log(user);
   return (
-    <div className="mainContainerforSignup">
+    <div className="mainContainerForsignup">
       <div className="submainContainer">
         <div style={{ flex: 1, marginLeft: 150, marginBottom: "170px" }}>
           <p className="logoText">
             Soc<span className="part">ial</span>
           </p>
-          <p className="introText">
+          <p className="introtext">
             Connect with your <span className="part">family and friends </span>
           </p>
         </div>
         <div style={{ flex: 3 }}>
-          <p className="createaccountText">Create New Account</p>
+          <p className="createaccountTxt">Create New Account</p>
           <input
             type="file"
             name="file"
             id="file"
             className="inputText"
-            onChange={(e) => setFile(e.target.files[0])}
+            onChange={(e) => setfile(e.target.files[0])}
           />
           <input
             type="text"
-            placeholder="UserName"
-            onChange={(e) => setUsername(e.target.value)}
+            placeholder="Username"
+            onChange={(e) => setusername(e.target.value)}
             className="inputText"
           />
           <input
             type="text"
             placeholder="Phonenumber"
-            onChange={(e) => setPhonenumber(e.target.value)}
+            onChange={(e) => setphonenumber(e.target.value)}
             className="inputText"
           />
           <input
             type="email"
-            placeholder="Email"
+            name=""
+            id=""
+            placeholder="email"
             onChange={(e) => setEmail(e.target.value)}
             className="inputText"
           />
           <input
             type="password"
-            placeholder="*****"
-            onChange={(e) => setPassword(e.target.value)}
+            placeholder="******"
+            name=""
+            onChange={(e) => setpassword(e.target.value)}
+            id=""
             className="inputText"
           />
-          <button className="btnForSignup" onClick={handleClick}>
+          <button className="btnforsignup" onClick={handleClick}>
             Signup
           </button>
-          <Link to="/">
-            <p style={{ marginLeft: "30%", textAlign: "start" }}>
-              Already have an account
+          <Link to={"/"}>
+            <p style={{ textAlign: "start", marginLeft: "30.6%" }}>
+              Already have a account
             </p>
           </Link>
         </div>
@@ -123,5 +130,4 @@ const Signup = () => {
     </div>
   );
 };
-
 export default Signup;
