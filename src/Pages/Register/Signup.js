@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import "./signup.css";
+import { UseSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 
 const Signup = () => {
+  const dispatch = useDispatch();
+
+  const [email, setEmail] = useState("");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [phoneNumber, setPhonenumber] = useState("");
+
   return (
     <div className="mainContainerforSignup">
       <div className="submainContainer">
@@ -16,10 +24,30 @@ const Signup = () => {
         </div>
         <div style={{ flex: 3 }}>
           <p className="createaccountText">Create New Account</p>
-          <input type="text" placeholder="UserName" className="inputText" />
-          <input type="text" placeholder="Phonenumber" className="inputText" />
-          <input type="email" placeholder="Email" className="inputText" />
-          <input type="password" placeholder="*****" className="inputText" />
+          <input
+            type="text"
+            placeholder="UserName"
+            onChange={(e) => setUsername(e.target.value)}
+            className="inputText"
+          />
+          <input
+            type="text"
+            placeholder="Phonenumber"
+            onChange={(e) => setPhonenumber(e.target.value)}
+            className="inputText"
+          />
+          <input
+            type="email"
+            placeholder="Email"
+            onChange={(e) => setEmail(e.target.value)}
+            className="inputText"
+          />
+          <input
+            type="password"
+            placeholder="*****"
+            onChange={(e) => setPassword(e.target.value)}
+            className="inputText"
+          />
           <button className="btnForSignup">Signup</button>
           <Link to="/">
             <p style={{ marginLeft: "30%", textAlign: "start" }}>

@@ -203,7 +203,7 @@ router.post("/forgot/password", async (req, res) => {
 //  reset password
 router.put("/reset/password", async (req, res) => {
   const { token, _id } = req.query;
-  if (!token || _id) {
+  if (!token || !_id) {
     return res.status(400).json("Invalid Request");
   }
   const user = await User.findOne({ _id: _id });
@@ -218,9 +218,9 @@ router.put("/reset/password", async (req, res) => {
   if (!isMatch) {
     return res.status(400).json("Token is not valid");
   }
-  const { password } = req.password;
-  const salt = await bcrypt.getSalt(10);
-  const secpass = await bcrypt.hash(password, salt);
+  const { password } = req.body;
+  // const salt = await bcrypt.getSalt(10);
+  const secpass = await bcrypt.hash(password, 10);
   user.password = secpass;
   await user.save();
 
