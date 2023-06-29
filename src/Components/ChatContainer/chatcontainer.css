@@ -1,0 +1,15 @@
+.MainChatContainer {
+    flex: 2.9
+}
+.userProfile{
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+}
+.chatuserprofile{
+    width: 50px;
+    height: 37px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-left: 10px;
+}

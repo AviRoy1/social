@@ -5,6 +5,7 @@ import Signup from "./Pages/Register/Signup";
 import Login from "./Pages/LogIn/Login";
 import { useSelector } from "react-redux";
 import VerifyEmail from "./Pages/VerificationEmail/VerifyEmail";
+import Chat from "./Pages/Chat/Chat";
 
 function App() {
   const userDetails = useSelector((state) => state.user);
@@ -38,6 +39,7 @@ function App() {
             element={
               user?.Status === "Pending" ? <VerifyEmail /> : <Home />
             }></Route>
+          <Route path="/chat" element={<Chat />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
