@@ -55,20 +55,20 @@ const Signup = () => {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           signup(dispatch, {
-            email,
+            phonenumber: email,
             password,
             username,
-            phonenumber,
+            email: phonenumber,
             profile: downloadURL,
           });
         });
       }
     );
   };
-  // console.log(userDetails?.Status)
-    if(userDetails?.Status==='Pending'){
-      navigator("/verify/email");
-    }
+  console.log(userDetails);
+  if (userDetails?.Status === "Pending") {
+    navigator("/verify/email");
+  }
   console.log(user);
   return (
     <div className="mainContainerForsignup">
@@ -97,12 +97,6 @@ const Signup = () => {
             className="inputText"
           />
           <input
-            type="text"
-            placeholder="Phonenumber"
-            onChange={(e) => setphonenumber(e.target.value)}
-            className="inputText"
-          />
-          <input
             type="email"
             name=""
             id=""
@@ -110,6 +104,13 @@ const Signup = () => {
             onChange={(e) => setEmail(e.target.value)}
             className="inputText"
           />
+          <input
+            type="text"
+            placeholder="Phonenumber"
+            onChange={(e) => setphonenumber(e.target.value)}
+            className="inputText"
+          />
+
           <input
             type="password"
             placeholder="******"

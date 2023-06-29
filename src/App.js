@@ -16,7 +16,7 @@ function App() {
           <Route
             path="/"
             element={
-              user.other.verified === true ? <Home /> : <Login />
+              user?.other?.verified === true ? <Home /> : <Login />
             }></Route>
           <Route
             path="/profile/:id"
@@ -36,7 +36,7 @@ function App() {
           <Route
             path="/verify/email"
             element={
-              user.Status === "Pending" ? <VerifyEmail /> : <Home />
+              user?.Status === "Pending" ? <VerifyEmail /> : <Home />
             }></Route>
         </Routes>
       </BrowserRouter>
