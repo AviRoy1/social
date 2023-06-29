@@ -107,7 +107,7 @@ router.post("/verify/email", async (req, res) => {
     JWTSEC
   );
 
-  const { password, ...others } = mainuser._doc;
+  const { password, ...other } = mainuser._doc;
 
   const transport = nodemailer.createTransport({
     host: "sandbox.smtp.mailtrap.io",
@@ -123,7 +123,7 @@ router.post("/verify/email", async (req, res) => {
     subject: "Successfully verify your email.",
     html: `Now you can login in social app`,
   });
-  return res.status(200).json({ others, accessToken });
+  return res.status(200).json({ other, accessToken });
 });
 
 // Login

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./signup.css";
 import { UseSelector, useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signup } from "../../Components/Redux/apiCall";
 import app from "../../firebase";
 import {
@@ -21,8 +21,8 @@ const Signup = () => {
   const [password, setpassword] = useState("");
   const [file, setfile] = useState(null);
   const userDetails = user.user;
-  console.log(user.user.Status);
-  // const navigator = useNavigate();
+  // console.log(user.user.Status);
+  const navigator = useNavigate();
   const handleClick = (e) => {
     e.preventDefault();
     const fileName = new Date().getTime() + file?.name;
@@ -66,9 +66,9 @@ const Signup = () => {
     );
   };
   // console.log(userDetails?.Status)
-  //   if(userDetails?.Status==='Pending'){
-  //     navigator("/verify/email");
-  //   }
+    if(userDetails?.Status==='Pending'){
+      navigator("/verify/email");
+    }
   console.log(user);
   return (
     <div className="mainContainerForsignup">

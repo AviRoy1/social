@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { signup } from "../../Components/Redux/apiCall";
+import { signup, verifyemail } from "../../Components/Redux/apiCall";
 
 const VerifyEmail = () => {
   const dispatch = useDispatch();
   const [OTP, setOTP] = useState("");
   const user = useSelector((state) => state.user);
-  const userDetails = user;
+  const userDetails = user.user;
   const id = userDetails?.user;
-  const handleOTP = () => {
-    signup(dispatch, {
+  const handleOTP = (e) => {
+    e.preventDefault();
+    verifyemail(dispatch, {
       OTP: OTP,
       user: id,
     });
