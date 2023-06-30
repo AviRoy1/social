@@ -20,8 +20,12 @@ const Navbar = () => {
   };
   return (
     <div className="mainNavbar">
-      <div className="LogoContainer">
-        <p>Social</p>
+      <div className="LogoContainer" style={{ marginLeft: "30px" }}>
+        <Link to="/">
+          <p style={{ marginLeft: "20px", fontSize: "20px", color: "red" }}>
+            Social
+          </p>
+        </Link>
       </div>
       <div>
         <div className="searchInputContainer">
@@ -37,7 +41,10 @@ const Navbar = () => {
       </div>
       <div className="IconsContainer">
         <img src={`${Notification}`} className="Icons" alt="" />
-        <img src={`${Message}`} className="Icons" alt="" />
+        <Link to={`/chat`}>
+          <img src={`${Message}`} className="Icons" alt="" />
+        </Link>
+
         <Link to={`/Profile/${id}`}>
           <div style={{ display: "flex", alignItems: "center" }}>
             <img

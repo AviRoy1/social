@@ -88,6 +88,10 @@ const Chatcontainer = ({ currentChatUser }) => {
     }
   }, [arrivalMessage]);
 
+  useEffect(() => {
+    arrivalMessage && setMessage((pre) => [...pre, arrivalMessage]);
+  }, [arrivalMessage]);
+
   return (
     <div className="MainChatContainer">
       <div>

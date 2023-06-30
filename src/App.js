@@ -19,7 +19,7 @@ function App() {
             path="/"
             element={
               // user?.other?.verified === true ? <Home /> : <Login />
-              <Home />
+              user !== null ? <Home /> : <Login />
             }></Route>
           <Route
             path="/profile/:id"

@@ -50,7 +50,7 @@ const Login = () => {
               forgot password
             </p>
           </Link>
-          <Link to="/">
+          <Link to="/signup">
             <p style={{ marginLeft: "30%", textAlign: "start" }}>
               Create new account
             </p>

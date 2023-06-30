@@ -122,7 +122,7 @@ const Signup = () => {
           <button className="btnforsignup" onClick={handleClick}>
             Signup
           </button>
-          <Link to={"/"}>
+          <Link to={"/login"}>
             <p style={{ textAlign: "start", marginLeft: "30.6%" }}>
               Already have a account
             </p>
