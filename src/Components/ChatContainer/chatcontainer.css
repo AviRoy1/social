@@ -13,3 +13,36 @@
     object-fit: cover;
     margin-left: 10px;
 }
+
+.msgContainer {
+    height: 70vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.msginput {
+    width: 53pc;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: black;
+    border:none;
+    margin-top: 0px;
+    color: white;
+}
+.msgSenderContainer {
+    display: flex;
+    width: 70pc;
+    background-color: aliceblue;
+    margin-top: 20px;
+    padding: 5px;
+    margin-left: 30px;
+    border-radius: 10px;
+}
+.msgbutton {
+    width: 130px;
+    height: 38px;
+    margin-top: 0px;
+    border: none;
+    color: white;
+    background-color: rgb(33, 124, 124);
+    border-radius: 10px;
+}

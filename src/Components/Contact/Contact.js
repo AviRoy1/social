@@ -1,6 +1,7 @@
 import React from "react";
 import "./contact.css";
 import profileimage from "../images/Profile.png";
+import Chatcontainer from "../ChatContainer/Chatcontainer";
 
 const Contact = () => {
   return (
@@ -183,6 +184,7 @@ const Contact = () => {
           </div>
         </div>
       </div>
+      <Chatcontainer />
     </div>
   );
 };

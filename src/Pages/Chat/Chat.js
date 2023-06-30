@@ -9,7 +9,7 @@ const Chat = () => {
       <Navbar />
       <div style={{ display: "flex" }}>
         <Contact />
-        <Chatcontainer />
+        {/* <Chatcontainer /> */}
       </div>
     </div>
   );
