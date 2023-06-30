@@ -10,6 +10,7 @@ import Chat from "./Pages/Chat/Chat";
 function App() {
   const userDetails = useSelector((state) => state.user);
   const user = userDetails.user;
+  console.log(user);
   return (
     <div className="App">
       <BrowserRouter>
@@ -17,7 +18,8 @@ function App() {
           <Route
             path="/"
             element={
-              user?.other?.verified === true ? <Home /> : <Login />
+              // user?.other?.verified === true ? <Home /> : <Login />
+              <Home />
             }></Route>
           <Route
             path="/profile/:id"
@@ -25,14 +27,14 @@ function App() {
           <Route
             path="/signup"
             element={
-              // user !== null ? <Navigate to={"/"} /> : <Signup />
-              <Signup />
+              user !== null ? <Navigate to={"/"} /> : <Signup />
+              // <Signup />
             }></Route>
           <Route
             path="/login"
             element={
-              // user !== null ? <Navigate to={"/"} /> : <Login />
-              <Login />
+              user !== null ? <Navigate to={"/"} /> : <Login />
+              // <Login />
             }></Route>
           <Route
             path="/verify/email"
