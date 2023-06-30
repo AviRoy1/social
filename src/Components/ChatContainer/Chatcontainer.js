@@ -2,7 +2,7 @@ import React from "react";
 import "./chatcontainer.css";
 import profileimage from "../images/Profile.png";
 
-const Chatcontainer = () => {
+const Chatcontainer = ({ currentChatUser }) => {
   return (
     <div className="MainChatContainer">
       <div>
@@ -16,8 +16,14 @@ const Chatcontainer = () => {
             padding: "5px",
             borderRadius: "10px",
           }}>
-          <img src={`${profileimage}`} className="userProfile" alt="" />
-          <p style={{ marginTop: "10px", marginLeft: "10px" }}>Avijit</p>
+          <img
+            src={`${currentChatUser?.profile}`}
+            className="userProfile"
+            alt=""
+          />
+          <p style={{ marginTop: "10px", marginLeft: "10px" }}>
+            {currentChatUser?.username}
+          </p>
         </div>
 
         <div className="msgContainer">
