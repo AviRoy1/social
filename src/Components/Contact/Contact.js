@@ -85,7 +85,15 @@ const Contact = () => {
           ))}
         </div>
       </div>
-      <Chatcontainer currentChatUser={currentChatUser} />
+      {currentChatUser !== "" ? (
+        <Chatcontainer currentChatUser={currentChatUser} />
+      ) : (
+        <div style={{ marginLeft: "40px", marginTop: "10px" }}>
+          <p style={{ fontSize: "30px", color: "#876b70" }}>
+            Open your Message Tab to chat with your friend
+          </p>
+        </div>
+      )}
     </div>
   );
 };

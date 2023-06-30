@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./chatcontainer.css";
 import profileimage from "../images/Profile.png";
 import axios from "axios";
@@ -10,7 +10,7 @@ const Chatcontainer = ({ currentChatUser }) => {
   // console.log(user);
   let id = user?.other?._id;
   const accessToken = user.accessToken;
-
+  const scrollRef = useRef();
   const [message, setMessage] = useState("");
   const [inputmessage, setInputmessage] = useState("");
   useEffect(() => {
@@ -30,6 +30,21 @@ const Chatcontainer = ({ currentChatUser }) => {
     getMessage();
   }, [currentChatUser._id]);
   // console.log(message);
+
+  useEffect(
+    (ref) => {
+      setTimeout(
+        () =>
+          scrollRef?.current?.scrollIntoView({
+            // inline: "center",
+            behavior: "smooth",
+          }),
+        777
+      );
+      // scrollRef.current.scrollIntoView({ behavior: "smooth" });
+    },
+    [message]
+  );
 
   const sendmsg = () => {
     const messages = {
@@ -74,8 +89,8 @@ const Chatcontainer = ({ currentChatUser }) => {
 
         <div className="msgContainer">
           {message !== ""
-            ? message.map((item) => (
-                <div>
+            ? message?.map((item) => (
+                <div ref={scrollRef}>
                   {item.myself === false ? (
                     <div className="msg">
                       <img
