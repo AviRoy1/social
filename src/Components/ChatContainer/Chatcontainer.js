@@ -1,8 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./chatcontainer.css";
 import profileimage from "../images/Profile.png";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Chatcontainer = ({ currentChatUser }) => {
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails?.user;
+  // console.log(user);
+  let id = user?.other?._id;
+  const accessToken = user.accessToken;
+
+  const [message, setMessage] = useState("");
+  const [inputmessage, setInputmessage] = useState("");
+  useEffect(() => {
+    const getMessage = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/post/get/chat/msg/${id}/${currentChatUser._id}`,
+          {
+            headers: {
+              token: accessToken,
+            },
+          }
+        );
+        setMessage(res.data);
+      } catch (error) {}
+    };
+    getMessage();
+  }, [currentChatUser._id]);
+  // console.log(message);
+
+  const sendmsg = () => {
+    fetch(`http://localhost:5000/api/post/msg`, {
+      method: "POST",
+      headers: { "Content-Type": "application.JSON", token: accessToken },
+      body: JSON.stringify({
+        to: currentChatUser._id,
+        from: id,
+        message: inputmessage,
+      }),
+    });
+  };
+
   return (
     <div className="MainChatContainer">
       <div>
@@ -27,46 +67,40 @@ const Chatcontainer = ({ currentChatUser }) => {
         </div>
 
         <div className="msgContainer">
-          <div className="msg">
-            <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p className="msgTxt">
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div className="msg">
-            <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p className="msgTxt">
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div className="msg">
-            <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p className="msgTxt">
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
+          {message !== ""
+            ? message.map((item) => (
+                <div>
+                  {item.myself === false ? (
+                    <div className="msg">
+                      <img
+                        src={`${currentChatUser?.profile}`}
+                        className="chatuserprofile"
+                        alt=""
+                      />
+                      <p className="msgTxt">{item?.message}</p>
+                    </div>
+                  ) : (
+                    <div
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        marginLeft: "30px",
+                        backgroundColor: "rgb(241 243 241)",
+                        marginTop: "10px",
+                        marginLeft: "620px",
+                        padding: "3px",
+                        borderRadius: "10px",
+                        width: "40%",
+                        marginTop: "10px",
+                      }}>
+                      <p style={{ textAlign: "start", marginLeft: "10px" }}>
+                        {item?.message}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              ))
+            : ""}
         </div>
 
         <div className="msgSenderContainer">
@@ -75,8 +109,11 @@ const Chatcontainer = ({ currentChatUser }) => {
             placeholder="Write your message here"
             id=""
             className="msginput"
+            onChange={(e) => setInputmessage(e.target.value)}
           />
-          <button className="msgbutton">Send</button>
+          <button className="msgbutton" onClick={sendmsg}>
+            Send
+          </button>
         </div>
       </div>
     </div>

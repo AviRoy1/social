@@ -195,7 +195,7 @@ router.get("/get/chat/msg/:user1Id/:user2Id", async (req, res) => {
       Chatusers: {
         $all: [from, to],
       },
-    }).sort({ updatedAt: -1 });
+    }).sort({ updatedAt: 1 });
 
     const allmessage = newmessage.map((msg) => {
       return {
