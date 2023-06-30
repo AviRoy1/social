@@ -1,9 +1,40 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./contact.css";
 import profileimage from "../images/Profile.png";
 import Chatcontainer from "../ChatContainer/Chatcontainer";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 const Contact = () => {
+  const userDetails = useSelector((state) => state.user);
+  let user = userDetails?.user;
+  // console.log(user);
+  let id = user?.other?._id;
+  const accessToken = user.accessToken;
+
+  const [users, setUsers] = useState([]);
+  const [currentChatUser, setcurrentChatUser] = useState("");
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(
+          `http://localhost:5000/api/post/following/${id}`,
+          {
+            headers: {
+              token: accessToken,
+            },
+          }
+        );
+        setUsers(res.data);
+      } catch (error) {}
+    };
+    getUser();
+  }, []);
+
+  const handleuser = (e) => {
+    setcurrentChatUser(e);
+  };
+
   return (
     <div className="mainContactContainer">
       <div>
@@ -15,176 +46,46 @@ const Contact = () => {
           />
         </div>
         <div className="userDetailContainer">
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
+          {users.map((item) => (
+            <div>
+              {item?._id !== id ? (
+                <div
+                  className="usercontainer"
+                  onClick={(e) => handleuser(item)}>
+                  <img
+                    src={`${item?.profile}`}
+                    className="chatuserimage"
+                    alt=""
+                  />
+                  <div style={{ marginLeft: "10px" }}>
+                    <p
+                      style={{
+                        color: "black",
+                        textAlign: "start",
+                        marginTop: "5px",
+                        fontSize: "15px",
+                      }}>
+                      {item?.username}
+                    </p>
+                    <p
+                      style={{
+                        color: "black",
+                        textAlign: "start",
+                        marginTop: "-16px",
+                        fontSize: "14px",
+                      }}>
+                      Open your message
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                ""
+              )}
             </div>
-          </div>
-
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
-            </div>
-          </div>
-
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
-            </div>
-          </div>
-
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
-            </div>
-          </div>
-
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
-            </div>
-          </div>
-
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
-            </div>
-          </div>
-
-          <div className="usercontainer">
-            <img src={`${profileimage}`} className="chatuserimage" alt="" />
-            <div style={{ marginLeft: "10px" }}>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "5px",
-                  fontSize: "15px",
-                }}>
-                AvijitR
-              </p>
-              <p
-                style={{
-                  color: "black",
-                  textAlign: "start",
-                  marginTop: "-16px",
-                  fontSize: "14px",
-                }}>
-                Open your message
-              </p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
-      <Chatcontainer />
+      <Chatcontainer currentChatUser={currentChatUser} />
     </div>
   );
 };

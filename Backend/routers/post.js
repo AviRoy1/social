@@ -2,6 +2,7 @@ const express = require("express");
 const Post = require("../models/Post");
 const { verifytoken } = require("./verifyToken");
 const User = require("../models/User");
+const Message = require("../models/Message");
 
 const router = express.Router();
 
@@ -163,6 +164,47 @@ router.get("/followers/:id", async (req, res) => {
       followersList.push({ others });
     });
     return res.status(200).json(followersList);
+  } catch (error) {
+    res.status(500).json("Internal error occure");
+  }
+});
+
+//  create message
+router.post("/msg", verifytoken, async (req, res) => {
+  try {
+    const { from, to, message } = req.body;
+    const newmessage = await Message.create({
+      Chatusers: [from, to],
+      Sender: from,
+      message: message,
+    });
+    return res.status(200).json(newmessage);
+  } catch (error) {
+    res.status(500).json("Internal error occure");
+  }
+});
+
+// chat between two users
+
+router.get("/get/chat/msg/:user1Id/:user2Id", async (req, res) => {
+  try {
+    const from = req.params.user1Id;
+    const to = req.params.user2Id;
+
+    const newmessage = await Message.find({
+      Chatusers: {
+        $all: [from, to],
+      },
+    }).sort({ updatedAt: -1 });
+
+    const allmessage = newmessage.map((msg) => {
+      return {
+        myself: msg.Sender.toString() === from,
+        message: msg.message,
+      };
+    });
+
+    return res.status(200).json(allmessage);
   } catch (error) {
     res.status(500).json("Internal error occure");
   }

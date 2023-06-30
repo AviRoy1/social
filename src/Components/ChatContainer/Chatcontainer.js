@@ -21,20 +21,9 @@ const Chatcontainer = () => {
         </div>
 
         <div className="msgContainer">
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
+          <div className="msg">
             <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
+            <p className="msgTxt">
               fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
               dbkdjldmvlsmfpsfk db jdgldgm{" "}
             </p>
@@ -58,203 +47,16 @@ const Chatcontainer = () => {
               dbkdjldmvlsmfpsfk db jdgldgm{" "}
             </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
+          <div className="msg">
             <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
+            <p className="msgTxt">
               fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
               dbkdjldmvlsmfpsfk db jdgldgm{" "}
             </p>
           </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
+          <div className="msg">
             <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <img src={`${profileimage}`} className="chatuserprofile" alt="" />
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
-              fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
-              dbkdjldmvlsmfpsfk db jdgldgm{" "}
-            </p>
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              marginLeft: "30px",
-              backgroundColor: "rgb(241 243 241)",
-              marginTop: "10px",
-              marginLeft: "620px",
-              padding: "3px",
-              borderRadius: "10px",
-              width: "40%",
-              marginTop: "10px",
-            }}>
-            <p style={{ textAlign: "start", marginLeft: "10px" }}>
+            <p className="msgTxt">
               fwfn kwfkwmfjosc mlnvknsvsn sjfow ,sgosjglmsnskmvd
               dbkdjldmvlsmfpsfk db jdgldgm{" "}
             </p>
