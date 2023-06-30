@@ -32,15 +32,21 @@ const Chatcontainer = ({ currentChatUser }) => {
   // console.log(message);
 
   const sendmsg = () => {
+    const messages = {
+      myself: true,
+      message: inputmessage,
+    };
+    console.log(currentChatUser?._id + " - " + inputmessage);
     fetch(`http://localhost:5000/api/post/msg`, {
       method: "POST",
-      headers: { "Content-Type": "application.JSON", token: accessToken },
+      headers: { "Content-Type": "application/JSON", token: accessToken },
       body: JSON.stringify({
-        to: currentChatUser._id,
+        to: currentChatUser?._id,
         from: id,
         message: inputmessage,
       }),
     });
+    setMessage(message.concat(messages));
   };
 
   return (
